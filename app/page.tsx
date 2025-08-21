@@ -20,15 +20,6 @@ import {
 export default function Home() {
   const features = [
     {
-      title: "AI Chat",
-      description:
-        "Interactive conversational AI with real-time messaging and context awareness.",
-      href: "/ui/chat",
-      icon: MessageCircle,
-      gradient: "from-blue-500 to-indigo-600",
-      bgGradient: "from-blue-50 to-indigo-50",
-    },
-    {
       title: "Text Completion",
       description:
         "Advanced text completion powered by AI for creative writing and content generation.",
@@ -37,33 +28,7 @@ export default function Home() {
       gradient: "from-emerald-500 to-teal-600",
       bgGradient: "from-emerald-50 to-teal-50",
     },
-    {
-      title: "AI Image Generation",
-      description:
-        "Create stunning, high-quality images from text descriptions using advanced AI models.",
-      href: "/ui/generateImage",
-      icon: Palette,
-      gradient: "from-violet-500 to-purple-600",
-      bgGradient: "from-violet-50 to-purple-50",
-    },
-    {
-      title: "Audio Transcription",
-      description:
-        "Convert speech to text with high accuracy using advanced AI-powered transcription.",
-      href: "/ui/transcribeAudio",
-      icon: Mic,
-      gradient: "from-green-500 to-emerald-600",
-      bgGradient: "from-green-50 to-emerald-50",
-    },
-    {
-      title: "Speech Generation",
-      description:
-        "Convert text to natural-sounding speech using advanced AI-powered text-to-speech technology.",
-      href: "/ui/generateSpeech",
-      icon: Volume2,
-      gradient: "from-amber-500 to-orange-600",
-      bgGradient: "from-amber-50 to-orange-50",
-    },
+
     {
       title: "Streaming Responses",
       description:
@@ -72,6 +37,15 @@ export default function Home() {
       icon: Zap,
       gradient: "from-purple-500 to-pink-600",
       bgGradient: "from-purple-50 to-pink-50",
+    },
+    {
+      title: "AI Chat",
+      description:
+        "Interactive conversational AI with real-time messaging and context awareness.",
+      href: "/ui/chat",
+      icon: MessageCircle,
+      gradient: "from-blue-500 to-indigo-600",
+      bgGradient: "from-blue-50 to-indigo-50",
     },
     {
       title: "Structured Data",
@@ -108,6 +82,34 @@ export default function Home() {
       icon: ImageIcon,
       gradient: "from-rose-500 to-pink-600",
       bgGradient: "from-rose-50 to-pink-50",
+    },
+
+    {
+      title: "AI Image Generation",
+      description:
+        "Create stunning, high-quality images from text descriptions using advanced AI models.",
+      href: "/ui/generateImage",
+      icon: Palette,
+      gradient: "from-violet-500 to-purple-600",
+      bgGradient: "from-violet-50 to-purple-50",
+    },
+    {
+      title: "Audio Transcription",
+      description:
+        "Convert speech to text with high accuracy using advanced AI-powered transcription.",
+      href: "/ui/transcribeAudio",
+      icon: Mic,
+      gradient: "from-green-500 to-emerald-600",
+      bgGradient: "from-green-50 to-emerald-50",
+    },
+    {
+      title: "Speech Generation",
+      description:
+        "Convert text to natural-sounding speech using advanced AI-powered text-to-speech technology.",
+      href: "/ui/generateSpeech",
+      icon: Volume2,
+      gradient: "from-amber-500 to-orange-600",
+      bgGradient: "from-amber-50 to-orange-50",
     },
   ];
 

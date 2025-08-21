@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { recipeSchema } from "@/app/api/sctructuredData/schema";
-import { ArrowLeft, Code } from "lucide-react";
+import { ArrowLeft, Code, Send } from "lucide-react";
 import Link from "next/link";
 import { StructuredDataCode } from "./StructuredDataCode";
 
@@ -44,40 +44,20 @@ function StructuredData() {
   }, [object?.recipe]);
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-orange-50 to-red-50">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white/90 backdrop-blur-sm border-b border-orange-200 px-4 py-4">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
+      <div className="bg-white border-b border-gray-200 px-4 py-3">
+        <div className="max-w-3xl mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="p-2 hover:bg-orange-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </Link>
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800">
-                AI Recipe Generator
-              </h1>
-              <p className="text-sm text-gray-600">
-                Create personalized recipes from any dish idea
-              </p>
-            </div>
+            <h1 className="text-xl font-semibold text-gray-800">
+              AI Recipe Generator
+            </h1>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -119,35 +99,16 @@ function StructuredData() {
         {showCode ? (
           <StructuredDataCode />
         ) : (
-          <div className="max-w-4xl mx-auto px-4 py-6">
+          <div className="max-w-3xl mx-auto">
             {!object?.recipe && !isLoading ? (
-              <div className="flex items-center justify-center h-full min-h-96">
+              <div className="flex items-center justify-center h-full px-4 py-10">
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg
-                      className="w-10 h-10 text-orange-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                      />
-                    </svg>
-                  </div>
-                  <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                     What would you like to cook?
                   </h2>
-                  <p className="text-lg text-gray-600 mb-2">
+                  <p className="text-gray-500">
                     Enter any dish name and I&apos;ll generate a complete recipe
                     for you
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Try &quot;Chicken Tikka Masala&quot;, &quot;Chocolate Chip
-                    Cookies&quot;, or &quot;Caesar Salad&quot;
                   </p>
                 </div>
               </div>
@@ -320,81 +281,30 @@ function StructuredData() {
 
       {/* Input Area */}
       {!showCode && (
-        <div className="bg-white/90 backdrop-blur-sm border-t border-orange-200 px-4 py-4">
-          <div className="max-w-4xl mx-auto">
+        <div className="bg-white border-t border-gray-200 px-4 py-4">
+          <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
-              <div className="flex items-center gap-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl px-6 py-4 border border-orange-200">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                  </div>
-                </div>
+              <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
                 <input
                   type="text"
                   value={dishName}
                   onChange={(e) => setDishName(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Enter a dish name (e.g., Beef Stroganoff, Tiramisu, Fish Tacos...)"
-                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 text-lg"
+                  placeholder="Enter a dish name..."
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500"
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={!dishName.trim() || isLoading}
-                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                  className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
                 >
-                  {isLoading ? (
-                    <div className="flex items-center gap-2">
-                      <svg
-                        className="w-4 h-4 animate-spin"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6v6l4 2"
-                        />
-                      </svg>
-                      Generating...
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6v6l4 2"
-                        />
-                      </svg>
-                      Create Recipe
-                    </div>
-                  )}
+                  <Send className="w-4 h-4 text-white" />
                 </button>
               </div>
             </form>
-            <p className="text-xs text-gray-500 text-center mt-3">
-              Press Enter to generate recipe • Powered by AI
+            <p className="text-xs text-gray-500 text-center mt-2">
+              Press Enter to send
             </p>
           </div>
         </div>
