@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { PenTool, Send, ArrowLeft } from "lucide-react";
+import { PenTool, Send, ArrowLeft, Code } from "lucide-react";
 import Link from "next/link";
+import { CompletitionCode } from "./CompletitionCode";
 
 function Completition() {
   const [inputValue, setInputValue] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showCode, setShowCode] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -86,97 +88,112 @@ function Completition() {
               AI Assistant
             </h1>
           </div>
-          {response && (
+          <div className="flex items-center gap-3">
             <button
-              onClick={handleNewTask}
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              onClick={() => setShowCode(!showCode)}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              New Task
+              <Code className="w-4 h-4" />
+              {showCode ? "Hide Code" : "View Code"}
             </button>
-          )}
+            {response && !showCode && (
+              <button
+                onClick={handleNewTask}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              >
+                New Task
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Content Container */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto">
-          {!response && !isLoading ? (
-            <div className="flex items-center justify-center h-full px-4 py-10">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <PenTool className="w-8 h-8 text-gray-400" />
+        {showCode ? (
+          <CompletitionCode />
+        ) : (
+          <div className="max-w-3xl mx-auto">
+            {!response && !isLoading ? (
+              <div className="flex items-center justify-center h-full px-4 py-10">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <PenTool className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                    What task can I help you with?
+                  </h2>
+                  <p className="text-gray-500">
+                    Describe your task and I&apos;ll provide assistance!
+                  </p>
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                  What task can I help you with?
-                </h2>
-                <p className="text-gray-500">
-                  Describe your task and I&apos;ll provide assistance!
-                </p>
               </div>
-            </div>
-          ) : (
-            <div className="px-4 py-6">
-              {isLoading && (
-                <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
+            ) : (
+              <div className="px-4 py-6">
+                {isLoading && (
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                      <span className="text-gray-600">
+                        Processing your task...
+                      </span>
                     </div>
-                    <span className="text-gray-600">
-                      Processing your task...
-                    </span>
                   </div>
-                </div>
-              )}
-              {response && (
-                <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                  <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
-                    {response}
+                )}
+                {response && (
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
+                      {response}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Input Area */}
-      <div className="bg-white border-t border-gray-200 px-4 py-4">
-        <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="relative">
-            <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-              <textarea
-                ref={textareaRef}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Describe your task..."
-                className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
-                rows={1}
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={!inputValue.trim() || isLoading}
-                className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
-              >
-                <Send className="w-4 h-4 text-white" />
-              </button>
-            </div>
-          </form>
-          <p className="text-xs text-gray-500 text-center mt-2">
-            Press Enter to send, Shift+Enter for new line
-          </p>
+      {!showCode && (
+        <div className="bg-white border-t border-gray-200 px-4 py-4">
+          <div className="max-w-3xl mx-auto">
+            <form onSubmit={handleSubmit} className="relative">
+              <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+                <textarea
+                  ref={textareaRef}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Describe your task..."
+                  className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
+                  rows={1}
+                  disabled={isLoading}
+                />
+                <button
+                  type="submit"
+                  disabled={!inputValue.trim() || isLoading}
+                  className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                >
+                  <Send className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            </form>
+            <p className="text-xs text-gray-500 text-center mt-2">
+              Press Enter to send, Shift+Enter for new line
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

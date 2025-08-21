@@ -3,12 +3,21 @@
 import { useChat } from "@ai-sdk/react";
 import { useState, useRef, useEffect } from "react";
 import { DefaultChatTransport } from "ai";
-import { MessageCircle, Square, Send, File, ArrowLeft } from "lucide-react";
+import {
+  MessageCircle,
+  Square,
+  Send,
+  File,
+  ArrowLeft,
+  Code,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { MultiModalChatCode } from "./MultiModalChatCode";
 
 function MultiModalChat() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
+  const [showCode, setShowCode] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -90,7 +99,7 @@ function MultiModalChat() {
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link
               href="/"
@@ -101,6 +110,15 @@ function MultiModalChat() {
             <h1 className="text-xl font-semibold text-gray-800">
               Multi-Modal AI Chat
             </h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowCode(!showCode)}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Code className="w-4 h-4" />
+              {showCode ? "Hide Code" : "View Code"}
+            </button>
           </div>
         </div>
       </div>
@@ -117,131 +135,164 @@ function MultiModalChat() {
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto">
-          {messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full px-4 py-10">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MessageCircle className="w-8 h-8 text-gray-400" />
+        {showCode ? (
+          <MultiModalChatCode />
+        ) : (
+          <div className="max-w-3xl mx-auto">
+            {messages.length === 0 ? (
+              <div className="flex items-center justify-center h-full px-4 py-10">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MessageCircle className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                    Start a conversation
+                  </h2>
+                  <p className="text-gray-500">
+                    Send a message to begin chatting with the AI assistant
+                  </p>
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                  Start a conversation
-                </h2>
-                <p className="text-gray-500">
-                  Send a message to begin chatting with the AI assistant
-                </p>
               </div>
-            </div>
-          ) : (
-            // MESSAGES
-            <div className="px-4 py-6 space-y-6">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    message.role === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
+            ) : (
+              // MESSAGES
+              <div className="px-4 py-6 space-y-6">
+                {messages.map((message) => (
                   <div
-                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
-                      message.role === "user"
-                        ? "bg-blue-500 text-white"
-                        : "bg-white border border-gray-200 text-gray-800 shadow-sm"
+                    key={message.id}
+                    className={`flex ${
+                      message.role === "user" ? "justify-end" : "justify-start"
                     }`}
                   >
-                    {message.parts.map((part, index) => {
-                      switch (part.type) {
-                        case "text":
-                          return (
-                            <div
-                              key={`${message.id}-${index}`}
-                              className="whitespace-pre-wrap leading-relaxed"
-                            >
-                              {part.text}
-                            </div>
-                          );
-                        case "file":
-                          if (part.mediaType?.startsWith("image/")) {
+                    <div
+                      className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
+                        message.role === "user"
+                          ? "bg-blue-500 text-white"
+                          : "bg-white border border-gray-200 text-gray-800 shadow-sm"
+                      }`}
+                    >
+                      {message.parts.map((part, index) => {
+                        switch (part.type) {
+                          case "text":
                             return (
                               <div
                                 key={`${message.id}-${index}`}
                                 className="whitespace-pre-wrap leading-relaxed"
                               >
-                                <Image
-                                  key={`${message.id}-${index}-image`}
-                                  src={part.url}
-                                  alt={part.filename || `attachment-${index}`}
-                                  width={500}
-                                  height={500}
-                                />
+                                {part.text}
                               </div>
                             );
-                          }
+                          case "file":
+                            if (part.mediaType?.startsWith("image/")) {
+                              return (
+                                <div
+                                  key={`${message.id}-${index}`}
+                                  className="whitespace-pre-wrap leading-relaxed"
+                                >
+                                  <Image
+                                    key={`${message.id}-${index}-image`}
+                                    src={part.url}
+                                    alt={part.filename || `attachment-${index}`}
+                                    width={500}
+                                    height={500}
+                                  />
+                                </div>
+                              );
+                            }
 
-                          if (part.mediaType?.startsWith("application/pdf")) {
-                            return (
-                              <iframe
-                                key={`${message.id}-${index}-pdf`}
-                                src={part.url}
-                                width={500}
-                                height={600}
-                                title={part.filename || `attachment-${index}`}
-                              />
-                            );
-                          }
+                            if (part.mediaType?.startsWith("application/pdf")) {
+                              return (
+                                <iframe
+                                  key={`${message.id}-${index}-pdf`}
+                                  src={part.url}
+                                  width={500}
+                                  height={600}
+                                  title={part.filename || `attachment-${index}`}
+                                />
+                              );
+                            }
 
-                          return null;
-                        default:
-                          return null;
-                      }
-                    })}
-                  </div>
-                </div>
-              ))}
-
-              {(status === "submitted" || status === "streaming") && (
-                <div className="flex justify-start">
-                  <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.1s" }}
-                        ></div>
-                        <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.2s" }}
-                        ></div>
-                      </div>
-                      <span className="text-sm text-gray-500">
-                        AI is typing...
-                      </span>
+                            return null;
+                          default:
+                            return null;
+                        }
+                      })}
                     </div>
                   </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-          )}
-        </div>
+                ))}
+
+                {(status === "submitted" || status === "streaming") && (
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                        <span className="text-sm text-gray-500">
+                          AI is typing...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Input Area */}
-      <div className="bg-white border-t border-gray-200 px-4 py-4">
-        <div className="max-w-3xl mx-auto">
-          {/* File attachments display */}
-          {files && files.length > 0 && (
-            <div className="mb-3 space-y-2">
-              {Array.from(files).map((file, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between bg-gray-50 rounded-lg p-3 border border-gray-200"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+      {!showCode && (
+        <div className="bg-white border-t border-gray-200 px-4 py-4">
+          <div className="max-w-3xl mx-auto">
+            {/* File attachments display */}
+            {files && files.length > 0 && (
+              <div className="mb-3 space-y-2">
+                {Array.from(files).map((file, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between bg-gray-50 rounded-lg p-3 border border-gray-200"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-blue-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {file.name}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {formatFileSize(file.size)}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFile(index)}
+                      className="w-6 h-6 bg-gray-200 hover:bg-red-100 rounded-full flex items-center justify-center transition-colors group"
+                    >
                       <svg
-                        className="w-4 h-4 text-blue-600"
+                        className="w-3 h-3 text-gray-600 group-hover:text-red-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -250,95 +301,68 @@ function MultiModalChat() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          d="M6 18L18 6M6 6l12 12"
                         />
                       </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
-                        {file.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {formatFileSize(file.size)}
-                      </p>
-                    </div>
+                    </button>
                   </div>
+                ))}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="relative">
+              <div className="flex items-center gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+                <label
+                  htmlFor="file-input"
+                  className="cursor-pointer p-2 text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  <File className="w-5 h-5" />
+                </label>
+
+                <input
+                  type="file"
+                  id="file-input"
+                  ref={fileInputRef}
+                  onChange={(e) => setFiles(e.target.files || undefined)}
+                  className="hidden"
+                  multiple
+                />
+                <textarea
+                  ref={textareaRef}
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type your message..."
+                  className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
+                  rows={1}
+                  disabled={status === "submitted" || status === "streaming"}
+                />
+
+                {status === "streaming" ? (
                   <button
                     type="button"
-                    onClick={() => removeFile(index)}
-                    className="w-6 h-6 bg-gray-200 hover:bg-red-100 rounded-full flex items-center justify-center transition-colors group"
+                    onClick={stop}
+                    className="w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors"
                   >
-                    <svg
-                      className="w-3 h-3 text-gray-600 group-hover:text-red-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
+                    <Square className="w-4 h-4 text-white" />
                   </button>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="relative">
-            <div className="flex items-center gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-              <label
-                htmlFor="file-input"
-                className="cursor-pointer p-2 text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                <File className="w-5 h-5" />
-              </label>
-
-              <input
-                type="file"
-                id="file-input"
-                ref={fileInputRef}
-                onChange={(e) => setFiles(e.target.files || undefined)}
-                className="hidden"
-                multiple
-              />
-              <textarea
-                ref={textareaRef}
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Type your message..."
-                className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
-                rows={1}
-                disabled={status === "submitted" || status === "streaming"}
-              />
-
-              {status === "streaming" ? (
-                <button
-                  type="button"
-                  onClick={stop}
-                  className="w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors"
-                >
-                  <Square className="w-4 h-4 text-white" />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  disabled={!prompt.trim() || status !== "ready"}
-                  className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
-                >
-                  <Send className="w-4 h-4 text-white" />
-                </button>
-              )}
-            </div>
-          </form>
-          <p className="text-xs text-gray-500 text-center mt-2">
-            Press Enter to send, Shift+Enter for new line
-          </p>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={!prompt.trim() || status !== "ready"}
+                    className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                  >
+                    <Send className="w-4 h-4 text-white" />
+                  </button>
+                )}
+              </div>
+            </form>
+            <p className="text-xs text-gray-500 text-center mt-2">
+              Press Enter to send, Shift+Enter for new line
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

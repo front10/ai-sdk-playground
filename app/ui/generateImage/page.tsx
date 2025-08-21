@@ -2,14 +2,16 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ImageIcon, Send, ArrowLeft } from "lucide-react";
+import { ImageIcon, Send, ArrowLeft, Code } from "lucide-react";
 import Link from "next/link";
+import { GenerateImageCode } from "./GenerateImageCode";
 
 function GenerateImagePage() {
   const [prompt, setPrompt] = useState("");
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showCode, setShowCode] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -90,14 +92,23 @@ function GenerateImagePage() {
               AI Image Generator
             </h1>
           </div>
-          {imageSrc && (
+          <div className="flex items-center gap-3">
             <button
-              onClick={handleNewImage}
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              onClick={() => setShowCode(!showCode)}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              New Image
+              <Code className="w-4 h-4" />
+              {showCode ? "Hide Code" : "View Code"}
             </button>
-          )}
+            {imageSrc && !showCode && (
+              <button
+                onClick={handleNewImage}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              >
+                New Image
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -114,89 +125,95 @@ function GenerateImagePage() {
 
       {/* Content Container */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto">
-          {!imageSrc && !isLoading ? (
-            <div className="flex items-center justify-center h-full px-4 py-10">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ImageIcon className="w-8 h-8 text-gray-400" />
-                </div>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                  Create stunning images with AI
-                </h2>
-                <p className="text-gray-500">
-                  Describe your vision and watch it come to life
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="px-4 py-6">
-              {isLoading && (
-                <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                    </div>
-                    <span className="text-gray-600">
-                      Generating your image...
-                    </span>
+        {showCode ? (
+          <GenerateImageCode />
+        ) : (
+          <div className="max-w-3xl mx-auto">
+            {!imageSrc && !isLoading ? (
+              <div className="flex items-center justify-center h-full px-4 py-10">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <ImageIcon className="w-8 h-8 text-gray-400" />
                   </div>
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                    Create stunning images with AI
+                  </h2>
+                  <p className="text-gray-500">
+                    Describe your vision and watch it come to life
+                  </p>
                 </div>
-              )}
-              {imageSrc && (
-                <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                  <Image
-                    src={imageSrc}
-                    alt="Generated Image"
-                    width={1024}
-                    height={1024}
-                    className="w-full max-w-lg mx-auto rounded-lg shadow-lg"
-                    style={{ height: "auto" }}
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+              </div>
+            ) : (
+              <div className="px-4 py-6">
+                {isLoading && (
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                      <span className="text-gray-600">
+                        Generating your image...
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {imageSrc && (
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <Image
+                      src={imageSrc}
+                      alt="Generated Image"
+                      width={1024}
+                      height={1024}
+                      className="w-full max-w-lg mx-auto rounded-lg shadow-lg"
+                      style={{ height: "auto" }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Input Area */}
-      <div className="bg-white border-t border-gray-200 px-4 py-4">
-        <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="relative">
-            <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-              <textarea
-                ref={textareaRef}
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Describe the image you want to generate..."
-                className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
-                rows={1}
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={!prompt.trim() || isLoading}
-                className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
-              >
-                <Send className="w-4 h-4 text-white" />
-              </button>
-            </div>
-          </form>
-          <p className="text-xs text-gray-500 text-center mt-2">
-            Press Enter to send, Shift+Enter for new line
-          </p>
+      {!showCode && (
+        <div className="bg-white border-t border-gray-200 px-4 py-4">
+          <div className="max-w-3xl mx-auto">
+            <form onSubmit={handleSubmit} className="relative">
+              <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+                <textarea
+                  ref={textareaRef}
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Describe the image you want to generate..."
+                  className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
+                  rows={1}
+                  disabled={isLoading}
+                />
+                <button
+                  type="submit"
+                  disabled={!prompt.trim() || isLoading}
+                  className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                >
+                  <Send className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            </form>
+            <p className="text-xs text-gray-500 text-center mt-2">
+              Press Enter to send, Shift+Enter for new line
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

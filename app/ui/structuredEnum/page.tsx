@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Code } from "lucide-react";
 import Link from "next/link";
+import { StructuredEnumCode } from "./StructuredEnumCode";
 
 function StructuredEnum() {
   const [text, setText] = useState("");
@@ -11,6 +12,7 @@ function StructuredEnum() {
   >("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [showCode, setShowCode] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -113,7 +115,7 @@ function StructuredEnum() {
     <div className="flex flex-col h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       {/* Header */}
       <div className="bg-white/90 backdrop-blur-sm border-b border-blue-200 px-4 py-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Link
               href="/"
@@ -144,6 +146,15 @@ function StructuredEnum() {
                 Analyze the sentiment of your text with AI
               </p>
             </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowCode(!showCode)}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Code className="w-4 h-4" />
+              {showCode ? "Hide Code" : "View Code"}
+            </button>
           </div>
         </div>
       </div>
