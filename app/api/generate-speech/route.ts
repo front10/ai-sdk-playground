@@ -11,7 +11,9 @@ export async function POST(request: NextRequest) {
       text,
     });
 
-    return new NextResponse(audio.uint8Array, {
+    const buffer = Buffer.from(audio.uint8Array);
+
+    return new NextResponse(buffer, {
       headers: {
         "Content-Type": audio.mediaType || "audio/mpeg",
       },
