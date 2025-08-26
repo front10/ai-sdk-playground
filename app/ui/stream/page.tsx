@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useCompletion } from "@ai-sdk/react";
 import { Zap, Square, Send, ArrowLeft, Code } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { StreamCode } from "./StreamCode";
 
 function Stream() {
@@ -61,13 +62,14 @@ function Stream() {
             </h1>
           </div>
           <div className="flex items-center gap-3">
-            <button
+            <Button
               onClick={() => setShowCode(!showCode)}
-              className="flex cursor-pointer items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+              variant="ghost"
+              className="flex items-center gap-2"
             >
               <Code className="w-4 h-4" />
               {showCode ? "Hide Code" : "View Code"}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -131,21 +133,24 @@ function Stream() {
                   disabled={isLoading}
                 />
                 {isLoading ? (
-                  <button
+                  <Button
                     type="button"
                     onClick={stop}
-                    className="w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors"
+                    variant="destructive"
+                    size="icon"
+                    className="w-8 h-8 rounded-full"
                   >
-                    <Square className="w-4 h-4 text-white" />
-                  </button>
+                    <Square className="w-4 h-4" />
+                  </Button>
                 ) : (
-                  <button
+                  <Button
                     type="submit"
                     disabled={!input.trim()}
-                    className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                    size="icon"
+                    className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
                   >
-                    <Send className="w-4 h-4 text-white" />
-                  </button>
+                    <Send className="w-4 h-4" />
+                  </Button>
                 )}
               </div>
             </form>

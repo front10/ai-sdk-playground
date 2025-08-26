@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { MultiModalChatCode } from "./MultiModalChatCode";
 
 function MultiModalChat() {
@@ -112,13 +113,14 @@ function MultiModalChat() {
             </h1>
           </div>
           <div className="flex items-center gap-3">
-            <button
+            <Button
               onClick={() => setShowCode(!showCode)}
-              className="flex cursor-pointer items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+              variant="ghost"
+              className="flex items-center gap-2"
             >
               <Code className="w-4 h-4" />
               {showCode ? "Hide Code" : "View Code"}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -286,10 +288,12 @@ function MultiModalChat() {
                         </p>
                       </div>
                     </div>
-                    <button
+                    <Button
                       type="button"
                       onClick={() => removeFile(index)}
-                      className="w-6 h-6 bg-gray-200 hover:bg-red-100 rounded-full flex items-center justify-center transition-colors group"
+                      variant="ghost"
+                      size="icon"
+                      className="w-6 h-6 bg-gray-200 hover:bg-red-100 rounded-full"
                     >
                       <svg
                         className="w-3 h-3 text-gray-600 group-hover:text-red-600"
@@ -304,7 +308,7 @@ function MultiModalChat() {
                           d="M6 18L18 6M6 6l12 12"
                         />
                       </svg>
-                    </button>
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -339,21 +343,24 @@ function MultiModalChat() {
                 />
 
                 {status === "streaming" ? (
-                  <button
+                  <Button
                     type="button"
                     onClick={stop}
-                    className="w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors"
+                    variant="destructive"
+                    size="icon"
+                    className="w-8 h-8 rounded-full"
                   >
-                    <Square className="w-4 h-4 text-white" />
-                  </button>
+                    <Square className="w-4 h-4" />
+                  </Button>
                 ) : (
-                  <button
+                  <Button
                     type="submit"
                     disabled={!prompt.trim() || status !== "ready"}
-                    className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                    size="icon"
+                    className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
                   >
-                    <Send className="w-4 h-4 text-white" />
-                  </button>
+                    <Send className="w-4 h-4" />
+                  </Button>
                 )}
               </div>
             </form>

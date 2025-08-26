@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Mic, Upload, ArrowLeft, File, Play, Pause, Code } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { TranscribeAudioCode } from "./TranscribeAudioCode";
 
 interface TranscriptionResponse {
@@ -247,20 +248,21 @@ function TranscribeAudioPage() {
             </h1>
           </div>
           <div className="flex items-center gap-3">
-            <button
+            <Button
               onClick={() => setShowCode(!showCode)}
-              className="flex cursor-pointer items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+              variant="ghost"
+              className="flex items-center gap-2"
             >
               <Code className="w-4 h-4" />
               {showCode ? "Hide Code" : "View Code"}
-            </button>
+            </Button>
             {transcription && !showCode && (
-              <button
+              <Button
                 onClick={handleNewTranscription}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                className="bg-blue-500 hover:bg-blue-600"
               >
                 New Transcription
-              </button>
+              </Button>
             )}
           </div>
         </div>
@@ -361,17 +363,18 @@ function TranscribeAudioPage() {
                           </div>
 
                           <div className="flex items-center space-x-3">
-                            <button
+                            <Button
                               type="button"
                               onClick={togglePlayPause}
-                              className="w-8 h-8 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors"
+                              size="icon"
+                              className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600"
                             >
                               {isPlaying ? (
-                                <Pause className="w-4 h-4 text-white" />
+                                <Pause className="w-4 h-4" />
                               ) : (
-                                <Play className="w-4 h-4 text-white ml-0.5" />
+                                <Play className="w-4 h-4 ml-0.5" />
                               )}
-                            </button>
+                            </Button>
 
                             <div className="flex-1 space-y-1">
                               <input
@@ -438,10 +441,12 @@ function TranscribeAudioPage() {
                         </p>
                       </div>
                     </div>
-                    <button
+                    <Button
                       type="button"
                       onClick={clearSelectedFile}
-                      className="w-6 h-6 bg-gray-200 hover:bg-red-100 rounded-full flex items-center justify-center transition-colors group"
+                      variant="ghost"
+                      size="icon"
+                      className="w-6 h-6 bg-gray-200 hover:bg-red-100 rounded-full"
                     >
                       <svg
                         className="w-3 h-3 text-gray-600 group-hover:text-red-600"
@@ -456,23 +461,24 @@ function TranscribeAudioPage() {
                           d="M6 18L18 6M6 6l12 12"
                         />
                       </svg>
-                    </button>
+                    </Button>
                   </div>
 
                   {/* Audio Player */}
                   {audioUrl && (
                     <div className="flex items-center space-x-3">
-                      <button
+                      <Button
                         type="button"
                         onClick={togglePlayPause}
-                        className="w-8 h-8 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors"
+                        size="icon"
+                        className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600"
                       >
                         {isPlaying ? (
-                          <Pause className="w-4 h-4 text-white" />
+                          <Pause className="w-4 h-4" />
                         ) : (
-                          <Play className="w-4 h-4 text-white ml-0.5" />
+                          <Play className="w-4 h-4 ml-0.5" />
                         )}
-                      </button>
+                      </Button>
 
                       <div className="flex-1 space-y-1">
                         <input
@@ -533,13 +539,13 @@ function TranscribeAudioPage() {
                     )}
                   </div>
 
-                  <button
+                  <Button
                     type="submit"
                     disabled={!audioFile || isLoading}
-                    className="px-6 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+                    className="px-6 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
                   >
                     {isLoading ? "Transcribing..." : "Transcribe"}
-                  </button>
+                  </Button>
                 </div>
               </form>
             ) : (

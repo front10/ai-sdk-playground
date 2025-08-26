@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { PenTool, Send, ArrowLeft, Code } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { CompletitionCode } from "./CompletitionCode";
 
 function Completition() {
@@ -89,20 +90,21 @@ function Completition() {
             </h1>
           </div>
           <div className="flex items-center gap-3">
-            <button
+            <Button
               onClick={() => setShowCode(!showCode)}
-              className="flex cursor-pointer items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+              variant="ghost"
+              className="flex items-center gap-2"
             >
               <Code className="w-4 h-4" />
               {showCode ? "Hide Code" : "View Code"}
-            </button>
+            </Button>
             {response && !showCode && (
-              <button
+              <Button
                 onClick={handleNewTask}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                className="bg-blue-500 hover:bg-blue-600"
               >
                 New Task
-              </button>
+              </Button>
             )}
           </div>
         </div>
@@ -179,13 +181,14 @@ function Completition() {
                   rows={1}
                   disabled={isLoading}
                 />
-                <button
+                <Button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-                  className="w-8 h-8 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                  size="icon"
+                  className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
                 >
-                  <Send className="w-4 h-4 text-white" />
-                </button>
+                  <Send className="w-4 h-4" />
+                </Button>
               </div>
             </form>
             <p className="text-xs text-gray-500 text-center mt-2">
