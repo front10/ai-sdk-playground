@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { MultiModalChatCode } from "./MultiModalChatCode";
 
 function MultiModalChat() {
@@ -331,13 +332,13 @@ function MultiModalChat() {
                   className="hidden"
                   multiple
                 />
-                <textarea
+                <Textarea
                   ref={textareaRef}
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
-                  className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
                   rows={1}
                   disabled={status === "submitted" || status === "streaming"}
                 />

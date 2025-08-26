@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Volume2, Play, ArrowLeft, Send, Code } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { GenerateSpeechCode } from "./GenerateSpeechCode";
 
 function GenerateSpeech() {
@@ -244,13 +245,13 @@ function GenerateSpeech() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-                <textarea
+                <Textarea
                   ref={textareaRef}
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Enter text to convert to speech..."
-                  className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
                   rows={1}
                   disabled={isLoading}
                 />

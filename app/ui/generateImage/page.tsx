@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ImageIcon, Send, ArrowLeft, Code } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { GenerateImageCode } from "./GenerateImageCode";
 
 function GenerateImagePage() {
@@ -191,13 +192,13 @@ function GenerateImagePage() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-                <textarea
+                <Textarea
                   ref={textareaRef}
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Describe the image you want to generate..."
-                  className="flex-1 bg-transparent resize-none border-none outline-none text-gray-800 placeholder-gray-500 max-h-48"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
                   rows={1}
                   disabled={isLoading}
                 />

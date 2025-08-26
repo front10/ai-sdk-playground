@@ -6,6 +6,7 @@ import { pokemonUISchema } from "@/app/api/structured-array/schema";
 import { ArrowLeft, Code, Send } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { StructuredArrayCode } from "./StructuredArrayCode";
 
 function StructuredData() {
@@ -238,7 +239,7 @@ function StructuredData() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-                <input
+                <Input
                   type="text"
                   value={pokemonType}
                   onChange={(e) => setPokemonType(e.target.value)}

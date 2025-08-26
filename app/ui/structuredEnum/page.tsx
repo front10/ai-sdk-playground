@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ArrowLeft, Code, Send } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { StructuredEnumCode } from "./StructuredEnumCode";
 
 function StructuredEnum() {
@@ -308,7 +309,7 @@ function StructuredEnum() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-                <input
+                <Input
                   type="text"
                   value={text}
                   onChange={(e) => setText(e.target.value)}

@@ -6,6 +6,7 @@ import { recipeSchema } from "@/app/api/sctructuredData/schema";
 import { ArrowLeft, Code, Send } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { StructuredDataCode } from "./StructuredDataCode";
 
 function StructuredData() {
@@ -288,7 +289,7 @@ function StructuredData() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
-                <input
+                <Input
                   type="text"
                   value={dishName}
                   onChange={(e) => setDishName(e.target.value)}
