@@ -29,11 +29,22 @@ function Tools() {
   };
 
   return (
-    return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header, sentiment analysis display, and input */}
-    </div>
-  );
+         {message.parts.map((part, index) => {
+            switch (part.type) {
+             case "text":
+                /** ... */
+             case "tool-getWeather":
+                   switch (part.state) {
+                     case "input-streaming":   /** ... */
+                     case "input-available":  /** ... */
+                     case "output-available":  /** ... */
+                     case "output-error":  /** ... */
+             }
+          })}
+        </div>
+    }
   );
 }
 

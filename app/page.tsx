@@ -114,8 +114,7 @@ export default function Home() {
     },
     {
       title: "AI Tools",
-      description:
-        "Interactive AI chat with custom tool integration for enhanced functionality and capabilities.",
+      description: "AI chat with powerful tools: weather",
       href: "/ui/tools",
       icon: Wrench,
       gradient: "from-slate-500 to-gray-600",
