@@ -3,10 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
-import { MessageCircle, Square, Send, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function Chat() {
   const { messages, sendMessage, status, error, stop } = useChat({});
@@ -40,9 +37,7 @@ function Chat() {
 
 export default Chat;`;
 
-const backendCode = `import { NextRequest, NextResponse } from "next/server";
-import { streamText, UIMessage, convertToModelMessages } from "ai";
-import { openai } from "@ai-sdk/openai";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

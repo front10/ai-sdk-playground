@@ -3,10 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import { useChat, UIMessage } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
-import { ImageIcon, Square, Send, ArrowLeft, Paperclip, X } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function MultiModalChat() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
@@ -79,9 +76,7 @@ function MultiModalChat() {
 
 export default MultiModalChat;`;
 
-const backendCode = `import { NextRequest, NextResponse } from "next/server";
-import { streamText, UIMessage, convertToModelMessages } from "ai";
-import { openai } from "@ai-sdk/openai";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

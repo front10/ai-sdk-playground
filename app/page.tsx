@@ -16,6 +16,7 @@ import {
   Globe,
   Volume2,
   Wrench,
+  Layers,
 } from "lucide-react";
 
 export default function Home() {
@@ -119,6 +120,15 @@ export default function Home() {
       icon: Wrench,
       gradient: "from-slate-500 to-gray-600",
       bgGradient: "from-slate-50 to-gray-50",
+    },
+    {
+      title: "Multiple Tools",
+      description:
+        "AI chat with multiple tools: location and weather services for enhanced interactions.",
+      href: "/ui/multiple-tools",
+      icon: Layers,
+      gradient: "from-cyan-500 to-blue-600",
+      bgGradient: "from-cyan-50 to-blue-50",
     },
   ];
 

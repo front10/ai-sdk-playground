@@ -3,9 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Settings, Send, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function StructuredData() {
   const [dish, setDish] = useState("");
@@ -81,10 +79,7 @@ function StructuredData() {
 
 export default StructuredData;`;
 
-const backendCode = `import { NextRequest, NextResponse } from "next/server";
-import { recipeSchema } from "./schema";
-import { streamObject } from "ai";
-import { openai } from "@ai-sdk/openai";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

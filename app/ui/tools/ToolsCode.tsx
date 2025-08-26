@@ -3,11 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
-import { MessageCircle, Square, Send, ArrowLeft, Code } from "lucide-react";
-import Link from "next/link";
-import { DefaultChatTransport } from "ai";
+/** Imports */
 
 function Tools() {
   const { messages, sendMessage, status, error, stop } = useChat({
@@ -50,18 +46,7 @@ function Tools() {
 
 export default Tools;`;
 
-const backendCode = `import { openai } from "@ai-sdk/openai";
-import {
-  convertToModelMessages,
-  streamText,
-  UIMessage,
-  tool,
-  InferUITools,
-  UIDataTypes,
-  stepCountIs,
-} from "ai";
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+const backendCode = `/** Imports */
 
 const tools = {
   getWeather: tool({

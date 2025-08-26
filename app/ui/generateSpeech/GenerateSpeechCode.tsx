@@ -3,9 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Volume2, Play, ArrowLeft, Send } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function GenerateSpeech() {
   const [text, setText] = useState("");
@@ -81,9 +79,7 @@ function GenerateSpeech() {
 
 export default GenerateSpeech;`;
 
-const backendCode = `import { openai } from "@ai-sdk/openai";
-import { experimental_generateSpeech as generateSpeech } from "ai";
-import { NextRequest, NextResponse } from "next/server";
+const backendCode = `/** Imports */
 
 export async function POST(request: NextRequest) {
   try {

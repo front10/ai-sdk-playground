@@ -3,9 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { PenTool, Send, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function Completition() {
   const [inputValue, setInputValue] = useState("");
@@ -62,9 +60,7 @@ function Completition() {
 
 export default Completition;`;
 
-const backendCode = `import { openai } from "@ai-sdk/openai";
-import { generateText } from "ai";
-import { NextRequest, NextResponse } from "next/server";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

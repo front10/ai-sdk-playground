@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatMessages } from "@/app/api/tools/route";
+import { ChatMessages } from "@/app/api/multiple-tools/route";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
@@ -11,10 +11,10 @@ import { useEffect, useRef, useState } from "react";
 import { ToolsCode } from "./ToolsCode";
 import { ToolRenderer } from "./components";
 
-function Tools() {
+function MultipleTools() {
   const { messages, sendMessage, status, error, stop } = useChat<ChatMessages>({
     transport: new DefaultChatTransport({
-      api: "/api/tools",
+      api: "/api/multiple-tools",
     }),
   });
 
@@ -144,6 +144,7 @@ function Tools() {
                               </div>
                             );
 
+                          case "tool-getLocation":
                           case "tool-getWeather":
                             return (
                               <ToolRenderer
@@ -239,4 +240,4 @@ function Tools() {
   );
 }
 
-export default Tools;
+export default MultipleTools;

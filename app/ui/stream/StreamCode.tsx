@@ -3,10 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useRef, useEffect } from "react";
-import { useCompletion } from "@ai-sdk/react";
-import { Zap, Square, Send, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function Stream() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -70,9 +67,7 @@ function Stream() {
 
 export default Stream;`;
 
-const backendCode = `import { streamText } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { NextRequest, NextResponse } from "next/server";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

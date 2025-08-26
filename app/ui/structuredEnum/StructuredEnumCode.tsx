@@ -3,9 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Target, Send, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function StructuredEnum() {
   const [text, setText] = useState("");
@@ -56,9 +54,7 @@ function StructuredEnum() {
 
 export default StructuredEnum;`;
 
-const backendCode = `import { NextRequest, NextResponse } from "next/server";
-import { generateObject } from "ai";
-import { openai } from "@ai-sdk/openai";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

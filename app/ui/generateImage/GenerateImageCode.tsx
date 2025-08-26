@@ -3,9 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Palette, Download, ArrowLeft, Send } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function GenerateImagePage() {
   const [prompt, setPrompt] = useState("");
@@ -66,9 +64,7 @@ function GenerateImagePage() {
 
 export default GenerateImagePage;`;
 
-const backendCode = `import { NextRequest, NextResponse } from "next/server";
-import { openai } from "@ai-sdk/openai";
-import { experimental_generateImage as generateImage } from "ai";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {

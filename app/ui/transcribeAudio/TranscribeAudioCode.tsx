@@ -3,9 +3,7 @@ import { CodeBlock } from "../../../components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import React, { useState, useRef } from "react";
-import { Mic, Upload, ArrowLeft, FileAudio } from "lucide-react";
-import Link from "next/link";
+/** Imports */
 
 function TranscribeAudio() {
   const [transcription, setTranscription] = useState<string>("");
@@ -79,9 +77,7 @@ function TranscribeAudio() {
 
 export default TranscribeAudio;`;
 
-const backendCode = `import { NextRequest, NextResponse } from "next/server";
-import { openai } from "@ai-sdk/openai";
-import { experimental_transcribe as transcribe } from "ai";
+const backendCode = `/** Imports */
 
 export async function POST(req: NextRequest) {
   try {
