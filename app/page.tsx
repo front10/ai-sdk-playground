@@ -15,6 +15,7 @@ import {
   ExternalLink,
   Globe,
   Volume2,
+  Wrench,
 } from "lucide-react";
 
 export default function Home() {
@@ -110,6 +111,15 @@ export default function Home() {
       icon: Volume2,
       gradient: "from-amber-500 to-orange-600",
       bgGradient: "from-amber-50 to-orange-50",
+    },
+    {
+      title: "AI Tools",
+      description:
+        "Interactive AI chat with custom tool integration for enhanced functionality and capabilities.",
+      href: "/ui/tools",
+      icon: Wrench,
+      gradient: "from-slate-500 to-gray-600",
+      bgGradient: "from-slate-50 to-gray-50",
     },
   ];
 

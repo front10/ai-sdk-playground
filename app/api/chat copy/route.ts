@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { streamText, UIMessage, convertToModelMessages } from "ai";
 import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,3 +20,5 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+//gemini-2.5-flash-lite
