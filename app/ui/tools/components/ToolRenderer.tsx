@@ -1,11 +1,5 @@
-import { UIMessage } from "ai";
 import { WeatherTool } from "./WeatherTool";
-
-interface ToolRendererProps {
-  part: UIMessage["parts"][0];
-  messageId: string;
-  index: number;
-}
+import { ToolRendererProps } from "./types";
 
 export function ToolRenderer({ part, messageId, index }: ToolRendererProps) {
   switch (part.type) {

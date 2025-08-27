@@ -70,7 +70,7 @@ function MultipleTools() {
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </Link>
             <h1 className="text-xl font-semibold text-gray-800">
-              AI Assistant Chat
+              AI Assistant with Multiple Tools
             </h1>
           </div>
           <div className="flex items-center gap-3">
@@ -112,7 +112,8 @@ function MultipleTools() {
                     Start a conversation
                   </h2>
                   <p className="text-gray-500">
-                    Send a message to begin chatting with the AI assistant
+                    Send a message to begin chatting with the AI assistant. Try
+                    asking about weather or locations!
                   </p>
                 </div>
               </div>
@@ -216,7 +217,7 @@ function MultipleTools() {
                     size="icon"
                     className="w-8 h-8 rounded-full"
                   >
-                    <Square className="w-4 h-4" />
+                    <Square className="w-4 h-4 text-white" />
                   </Button>
                 ) : (
                   <Button

@@ -1,7 +1,7 @@
-import { UIMessage } from "ai";
+import { WeatherToolPart } from "./types";
 
 interface WeatherToolProps {
-  part: UIMessage["parts"][0];
+  part: WeatherToolPart;
   messageId: string;
   index: number;
 }

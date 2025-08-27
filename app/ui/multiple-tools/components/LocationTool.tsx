@@ -1,10 +1,4 @@
-import { UIMessage } from "ai";
-
-interface LocationToolProps {
-  part: UIMessage["parts"][0];
-  messageId: string;
-  index: number;
-}
+import { LocationToolProps } from "./types";
 
 export function LocationTool({ part, messageId, index }: LocationToolProps) {
   switch (part.state) {
@@ -20,9 +14,7 @@ export function LocationTool({ part, messageId, index }: LocationToolProps) {
             </div>
             <p className="text-purple-700 text-sm mb-2">
               Receiving location request for{" "}
-              <span className="font-semibold">
-                {(part.input as { name: string })?.name}
-              </span>
+              <span className="font-semibold">{part.input?.name}</span>
             </p>
             <div className="bg-purple-100 rounded p-2">
               <pre className="text-xs text-purple-800 overflow-x-auto">
@@ -45,10 +37,7 @@ export function LocationTool({ part, messageId, index }: LocationToolProps) {
             </div>
             <p className="text-indigo-700 text-sm">
               Getting location for{" "}
-              <span className="font-semibold">
-                {(part.input as { name: string })?.name}
-              </span>
-              ...
+              <span className="font-semibold">{part.input?.name}</span>...
             </p>
           </div>
         </div>
@@ -70,7 +59,7 @@ export function LocationTool({ part, messageId, index }: LocationToolProps) {
                   Location:
                 </span>
                 <span className="text-sm text-teal-800">
-                  {(part.output as { location: string })?.location}
+                  {part.output?.location}
                 </span>
               </div>
             </div>

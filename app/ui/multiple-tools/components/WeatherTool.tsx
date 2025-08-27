@@ -1,10 +1,4 @@
-import { UIMessage } from "ai";
-
-interface WeatherToolProps {
-  part: UIMessage["parts"][0];
-  messageId: string;
-  index: number;
-}
+import { WeatherToolProps } from "./types";
 
 export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
   switch (part.state) {
@@ -20,9 +14,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
             </div>
             <p className="text-amber-700 text-sm mb-2">
               Receiving weather request for{" "}
-              <span className="font-semibold">
-                {(part.input as { city: string })?.city}
-              </span>
+              <span className="font-semibold">{part.input?.city}</span>
             </p>
             <div className="bg-amber-100 rounded p-2">
               <pre className="text-xs text-amber-800 overflow-x-auto">
@@ -45,10 +37,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
             </div>
             <p className="text-blue-700 text-sm">
               Getting weather for{" "}
-              <span className="font-semibold">
-                {(part.input as { city: string })?.city}
-              </span>
-              ...
+              <span className="font-semibold">{part.input?.city}</span>...
             </p>
           </div>
         </div>
@@ -70,7 +59,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
                   Location:
                 </span>
                 <span className="text-sm text-green-800">
-                  {(part.output as { location: string })?.location}
+                  {part.output?.location}
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -78,15 +67,8 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
                   Temperature:
                 </span>
                 <span className="text-sm text-green-800">
-                  {
-                    (part.output as { temperature: number; unit: string })
-                      ?.temperature
-                  }
-                  °
-                  {(part.output as { temperature: number; unit: string })
-                    ?.unit === "celsius"
-                    ? "C"
-                    : "F"}
+                  {part.output?.temperature}°
+                  {part.output?.unit === "celsius" ? "C" : "F"}
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -94,7 +76,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
                   Conditions:
                 </span>
                 <span className="text-sm text-green-800">
-                  {(part.output as { description: string })?.description}
+                  {part.output?.description}
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -102,7 +84,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
                   Humidity:
                 </span>
                 <span className="text-sm text-green-800">
-                  {(part.output as { humidity: number })?.humidity}%
+                  {part.output?.humidity}%
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -110,13 +92,13 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
                   Wind Speed:
                 </span>
                 <span className="text-sm text-green-800">
-                  {(part.output as { windSpeed: number })?.windSpeed} km/h
+                  {part.output?.windSpeed} km/h
                 </span>
               </div>
-              {(part.output as { note?: string })?.note && (
+              {part.output?.note && (
                 <div className="mt-3 p-2 bg-green-100 rounded border-l-2 border-green-300">
                   <p className="text-xs text-green-700 italic">
-                    {(part.output as { note?: string }).note}
+                    {part.output.note}
                   </p>
                 </div>
               )}

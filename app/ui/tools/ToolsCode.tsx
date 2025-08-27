@@ -55,21 +55,7 @@ const tools = {
       city: z.string().describe("The city to get the weather for"),
     }),
     execute: async ({ city }) => {
-      if (city === "Gotham City") {
-        return {
-          temperature: 20,
-          description: "Sunny",
-        };
-      }
-
-      if (city === "Metropolis") {
-        return {
-          temperature: 10,
-          description: "Cloudy",
-        };
-      }
-
-      return "Unknown";
+      // Api call, db lookup, etc.
     },
   }),
 };

@@ -141,7 +141,7 @@ function Stream() {
                     size="icon"
                     className="w-8 h-8 rounded-full"
                   >
-                    <Square className="w-4 h-4" />
+                    <Square className="w-4 h-4 text-white" />
                   </Button>
                 ) : (
                   <Button
