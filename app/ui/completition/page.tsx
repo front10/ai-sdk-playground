@@ -127,8 +127,24 @@ function Completition() {
                     What task can I help you with?
                   </h2>
                   <p className="text-gray-500">
-                    Describe your task and I&apos;ll provide assistance!
+                    Describe your task and I&apos;ll provide assistance with text completion!
                   </p>
+                  <div className="mt-6 space-y-3">
+                    <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                      Try these examples
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Complete this sentence: The future of AI is...&rdquo;
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Write a paragraph about space exploration&rdquo;
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Continue this story: Once upon a time...&rdquo;
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (

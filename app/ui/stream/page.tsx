@@ -91,8 +91,25 @@ function Stream() {
                     What task can I help you with?
                   </h2>
                   <p className="text-gray-500">
-                    Describe your task and I&apos;ll provide assistance!
+                    Describe your task and I&apos;ll provide assistance with
+                    real-time streaming responses!
                   </p>
+                  <div className="mt-6 space-y-3">
+                    <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                      Try these examples
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Write a short story about a robot&rdquo;
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Explain how photosynthesis works&rdquo;
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Create a recipe for chocolate chip cookies&rdquo;
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (

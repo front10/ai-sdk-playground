@@ -296,8 +296,24 @@ function TranscribeAudioPage() {
                   </h2>
                   <p className="text-gray-500">
                     Upload an audio file and get accurate transcription powered
-                    by Whisper
+                    by Whisper!
                   </p>
+                  <div className="mt-6 space-y-3">
+                    <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                      Supported formats
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        Voice recordings (WAV, MP3)
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        Podcast episodes
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        Meeting recordings
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (

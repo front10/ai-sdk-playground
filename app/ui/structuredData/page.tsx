@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { recipeSchema } from "@/app/api/sctructuredData/schema";
-import { ArrowLeft, Code, Send } from "lucide-react";
+import { ArrowLeft, Code, Send, Settings } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -106,13 +106,32 @@ function StructuredData() {
             {!object?.recipe && !isLoading ? (
               <div className="flex items-center justify-center h-full px-4 py-10">
                 <div className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Settings className="w-8 h-8 text-gray-400" />
+                  </div>
                   <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                     What would you like to cook?
                   </h2>
                   <p className="text-gray-500">
                     Enter any dish name and I&apos;ll generate a complete recipe
-                    for you
+                    for you with structured data!
                   </p>
+                  <div className="mt-6 space-y-3">
+                    <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                      Try these examples
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Chocolate chip cookies&rdquo;
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Spaghetti carbonara&rdquo;
+                      </div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                        &ldquo;Chicken curry&rdquo;
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
