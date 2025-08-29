@@ -57,21 +57,3 @@ export type WeatherToolPart = UIMessage<
 };
 
 export type ToolPart = LocationToolPart | WeatherToolPart;
-
-export interface ToolRendererProps {
-  part: ToolPart;
-  messageId: string;
-  index: number;
-}
-
-export interface LocationToolProps {
-  part: LocationToolPart;
-  messageId: string;
-  index: number;
-}
-
-export interface WeatherToolProps {
-  part: WeatherToolPart;
-  messageId: string;
-  index: number;
-}

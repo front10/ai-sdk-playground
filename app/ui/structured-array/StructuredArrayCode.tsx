@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     const { type } = await req.json();
 
     const result = streamObject({
-      model: openai("gpt-4.1-nano"),
+      model: openai("gpt-5-nano"),
       output: "array",
       schema: pokemonSchema,
       prompt: \`Generate a list of 5 \${type} type pokemon\`,
@@ -112,7 +112,7 @@ export const pokemonUISchema = z.array(pokemonSchema);`;
 
 export function StructuredArrayCode() {
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="w-full mx-auto p-6 space-y-8">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
           Implementation Code
@@ -123,41 +123,53 @@ export function StructuredArrayCode() {
         </p>
       </div>
 
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-            Frontend Implementation
-          </h3>
-          <CodeBlock
-            language="tsx"
-            filename="app/ui/structuredArray/page.tsx"
-            code={frontendCode}
-          />
+      <div className="space-y-8">
+        {/* Code Examples - Responsive Grid Layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          {/* Frontend Implementation */}
+          <div className="min-w-0">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              Frontend Implementation
+            </h3>
+            <div className="min-w-0 overflow-hidden">
+              <CodeBlock
+                language="tsx"
+                filename="app/ui/structuredArray/page.tsx"
+                code={frontendCode}
+              />
+            </div>
+          </div>
+
+          {/* Backend API Route */}
+          <div className="min-w-0">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              Backend API Route
+            </h3>
+            <div className="min-w-0 overflow-hidden">
+              <CodeBlock
+                language="typescript"
+                filename="app/api/structured-array/route.ts"
+                code={backendCode}
+              />
+            </div>
+          </div>
         </div>
 
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            Backend API Route
-          </h3>
-          <CodeBlock
-            language="typescript"
-            filename="app/api/structured-array/route.ts"
-            code={backendCode}
-          />
-        </div>
-
-        <div>
+        {/* Schema Definition - Full Width */}
+        <div className="min-w-0">
           <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
             Zod Schema Definition
           </h3>
-          <CodeBlock
-            language="typescript"
-            filename="app/api/structured-array/schema.ts"
-            code={schemaCode}
-          />
+          <div className="min-w-0 overflow-hidden">
+            <CodeBlock
+              language="typescript"
+              filename="app/api/structured-array/schema.ts"
+              code={schemaCode}
+            />
+          </div>
         </div>
 
         <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6">

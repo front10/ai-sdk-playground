@@ -1,4 +1,10 @@
-import { WeatherToolProps } from "./types";
+import { WeatherToolPart } from "./types";
+
+export interface WeatherToolProps {
+  part: WeatherToolPart;
+  messageId: string;
+  index: number;
+}
 
 export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
   switch (part.state) {

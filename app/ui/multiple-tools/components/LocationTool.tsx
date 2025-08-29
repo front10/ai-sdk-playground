@@ -1,4 +1,10 @@
-import { LocationToolProps } from "./types";
+import { LocationToolPart } from "./types";
+
+export interface LocationToolProps {
+  part: LocationToolPart;
+  messageId: string;
+  index: number;
+}
 
 export function LocationTool({ part, messageId, index }: LocationToolProps) {
   switch (part.state) {

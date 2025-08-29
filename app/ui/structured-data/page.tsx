@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { experimental_useObject as useObject } from "@ai-sdk/react";
-import { recipeSchema } from "@/app/api/sctructuredData/schema";
+import { recipeSchema } from "@/app/api/sctructured-data/schema";
 import { ArrowLeft, Code, Send, Settings } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,10 +13,9 @@ function StructuredData() {
   const [dishName, setDishName] = useState("");
   const [showCode, setShowCode] = useState(false);
   const { submit, object, isLoading, error, stop } = useObject({
-    api: "/api/sctructuredData",
+    api: "/api/sctructured-data",
     schema: recipeSchema,
   });
-  console.log("🚀 ~ StructuredData ~ object:", object);
   const recipeRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

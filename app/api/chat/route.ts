@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { streamText, UIMessage, convertToModelMessages } from "ai";
 import { openai } from "@ai-sdk/openai";
-import { google } from "@ai-sdk/google";
+import { convertToModelMessages, streamText, UIMessage, UIDataTypes } from "ai";
+import { NextRequest, NextResponse } from "next/server";
+
+export type ChatMessages = UIMessage<never, UIDataTypes>;
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages }: { messages: UIMessage[] } = await req.json();
+    const { messages }: { messages: ChatMessages[] } = await req.json();
 
     const result = streamText({
       model: openai("gpt-4.1-nano"),
@@ -20,5 +21,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
-//gemini-2.5-flash-lite

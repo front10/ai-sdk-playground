@@ -5,13 +5,18 @@ export interface WeatherInput {
 }
 
 export interface WeatherOutput {
-  location: string;
-  temperature: number;
-  description: string;
-  humidity: number;
-  windSpeed: number;
-  unit: string;
-  note?: string;
+  location: {
+    name: string;
+    country: string;
+    localtime: string;
+  };
+  current: {
+    temp_c: number;
+    condition: {
+      text: string;
+      code: number;
+    };
+  };
 }
 
 export type WeatherToolPart = UIMessage<
@@ -26,3 +31,9 @@ export type WeatherToolPart = UIMessage<
 >["parts"][0] & {
   type: "tool-getWeather";
 };
+
+export interface ToolRendererProps {
+  part: WeatherToolPart;
+  messageId: string;
+  index: number;
+}

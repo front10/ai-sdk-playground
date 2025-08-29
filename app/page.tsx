@@ -1,144 +1,27 @@
-import Image from "next/image";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { features } from "@/data/featured-tools";
+import { ChevronRight, ExternalLink, FileText, Globe } from "lucide-react";
 import Link from "next/link";
-import {
-  MessageCircle,
-  PenTool,
-  Zap,
-  Settings,
-  ClipboardList,
-  Target,
-  ImageIcon,
-  Palette,
-  Mic,
-  ChevronRight,
-  FileText,
-  ExternalLink,
-  Globe,
-  Volume2,
-  Wrench,
-  Layers,
-} from "lucide-react";
 
 export default function Home() {
-  const features = [
-    {
-      title: "Text Completion",
-      description:
-        "Advanced text completion powered by AI for creative writing and content generation.",
-      href: "/ui/completition",
-      icon: PenTool,
-      gradient: "from-emerald-500 to-teal-600",
-      bgGradient: "from-emerald-50 to-teal-50",
-    },
-
-    {
-      title: "Streaming Responses",
-      description:
-        "Real-time streaming AI responses for dynamic and engaging user experiences.",
-      href: "/ui/stream",
-      icon: Zap,
-      gradient: "from-purple-500 to-pink-600",
-      bgGradient: "from-purple-50 to-pink-50",
-    },
-    {
-      title: "AI Chat",
-      description:
-        "Interactive conversational AI with real-time messaging and context awareness.",
-      href: "/ui/chat",
-      icon: MessageCircle,
-      gradient: "from-blue-500 to-indigo-600",
-      bgGradient: "from-blue-50 to-indigo-50",
-    },
-    {
-      title: "Structured Data",
-      description:
-        "Generate structured content like recipes with AI-powered object generation.",
-      href: "/ui/structuredData",
-      icon: Settings,
-      gradient: "from-orange-500 to-red-600",
-      bgGradient: "from-orange-50 to-red-50",
-    },
-    {
-      title: "Structured Arrays",
-      description:
-        "Generate structured arrays of data like Pokemon lists with AI-powered collection generation.",
-      href: "/ui/structuredArray",
-      icon: ClipboardList,
-      gradient: "from-indigo-500 to-blue-600",
-      bgGradient: "from-indigo-50 to-blue-50",
-    },
-    {
-      title: "Structured Enums",
-      description:
-        "Classify and analyze text sentiment using AI-powered enum generation with predefined categories.",
-      href: "/ui/structuredEnum",
-      icon: Target,
-      gradient: "from-teal-500 to-cyan-600",
-      bgGradient: "from-teal-50 to-cyan-50",
-    },
-    {
-      title: "Multi-Modal Chat",
-      description:
-        "Advanced AI chat with support for text, images, and multiple input types for rich conversations.",
-      href: "/ui/multi-modal-chat",
-      icon: ImageIcon,
-      gradient: "from-rose-500 to-pink-600",
-      bgGradient: "from-rose-50 to-pink-50",
-    },
-
-    {
-      title: "AI Image Generation",
-      description:
-        "Create stunning, high-quality images from text descriptions using advanced AI models.",
-      href: "/ui/generateImage",
-      icon: Palette,
-      gradient: "from-violet-500 to-purple-600",
-      bgGradient: "from-violet-50 to-purple-50",
-    },
-    {
-      title: "Audio Transcription",
-      description:
-        "Convert speech to text with high accuracy using advanced AI-powered transcription.",
-      href: "/ui/transcribeAudio",
-      icon: Mic,
-      gradient: "from-green-500 to-emerald-600",
-      bgGradient: "from-green-50 to-emerald-50",
-    },
-    {
-      title: "Speech Generation",
-      description:
-        "Convert text to natural-sounding speech using advanced AI-powered text-to-speech technology.",
-      href: "/ui/generateSpeech",
-      icon: Volume2,
-      gradient: "from-amber-500 to-orange-600",
-      bgGradient: "from-amber-50 to-orange-50",
-    },
-    {
-      title: "AI Tools",
-      description: "AI chat with powerful tools: weather",
-      href: "/ui/tools",
-      icon: Wrench,
-      gradient: "from-slate-500 to-gray-600",
-      bgGradient: "from-slate-50 to-gray-50",
-    },
-    {
-      title: "Multiple Tools",
-      description:
-        "AI chat with multiple tools: location and weather services for enhanced interactions.",
-      href: "/ui/multiple-tools",
-      icon: Layers,
-      gradient: "from-cyan-500 to-blue-600",
-      bgGradient: "from-cyan-50 to-blue-50",
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16 sm:py-24">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <FlickeringGrid
+          className="absolute inset-0 z-0 size-full"
+          squareSize={10}
+          gridGap={6}
+          color="#6B7280"
+          maxOpacity={0.3}
+          flickerChance={0.1}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 via-white/80 to-gray-50/80"></div>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 py-16 sm:py-24">
         <div className="text-center mb-16">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">
               AI SDK
             </span>
             <br />
@@ -148,7 +31,8 @@ export default function Home() {
           <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
             Explore the power of AI with Next.js and the AI SDK. Experience
             cutting-edge conversational AI, text completion, streaming
-            responses, and structured data generation.
+            responses, structured data generation, and real-time weather data
+            integration.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -165,7 +49,7 @@ export default function Home() {
             <Link
               key={feature.title}
               href={feature.href}
-              className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group relative overflow-hidden rounded-2xl bg-white/90 backdrop-blur-sm border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${feature.bgGradient} opacity-0 group-hover:opacity-50 transition-opacity duration-300`}
@@ -196,8 +80,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 py-12">
+      <footer className="relative z-10 border-t border-gray-200 py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-8 items-center justify-center text-sm text-gray-500">
             <a

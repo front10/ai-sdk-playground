@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     const { messages }: { messages: UIMessage[] } = await req.json();
 
     const result = streamText({
-      model: openai("gpt-4.1-nano"),
+      model: openai("gpt-5-nano"),
       messages: [
         {
           role: "system",
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
 
 export function MultiModalChatCode() {
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="w-full mx-auto p-6 space-y-8">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
           Implementation Code
@@ -124,29 +124,38 @@ export function MultiModalChatCode() {
         </p>
       </div>
 
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-            Frontend Implementation
-          </h3>
-          <CodeBlock
-            language="tsx"
-            filename="app/ui/multi-modal-chat/page.tsx"
-            code={frontendCode}
-          />
-        </div>
+      <div className="space-y-8">
+        {/* Code Examples - Side by Side */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          {/* Frontend Implementation */}
+          <div className="min-w-0">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              Frontend Implementation
+            </h3>
+            <div className="min-w-0 overflow-hidden">
+              <CodeBlock
+                language="tsx"
+                filename="app/ui/multi-modal-chat/page.tsx"
+                code={frontendCode}
+              />
+            </div>
+          </div>
 
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            Backend API Route
-          </h3>
-          <CodeBlock
-            language="typescript"
-            filename="app/api/multi-modal-chat/route.ts"
-            code={backendCode}
-          />
+          {/* Backend API Route */}
+          <div className="min-w-0">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              Backend API Route
+            </h3>
+            <div className="min-w-0 overflow-hidden">
+              <CodeBlock
+                language="typescript"
+                filename="app/api/multi-modal-chat/route.ts"
+                code={backendCode}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="bg-rose-50 border border-rose-200 rounded-lg p-6">

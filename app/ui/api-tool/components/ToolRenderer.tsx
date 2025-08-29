@@ -1,11 +1,5 @@
 import { WeatherTool } from "./WeatherTool";
-import { WeatherToolPart } from "./types";
-
-export interface ToolRendererProps {
-  part: WeatherToolPart;
-  messageId: string;
-  index: number;
-}
+import { ToolRendererProps } from "./types";
 
 export function ToolRenderer({ part, messageId, index }: ToolRendererProps) {
   switch (part.type) {

@@ -1,6 +1,12 @@
 import { LocationTool } from "./LocationTool";
+import { ToolPart } from "./types";
 import { WeatherTool } from "./WeatherTool";
-import { ToolRendererProps } from "./types";
+
+export interface ToolRendererProps {
+  part: ToolPart;
+  messageId: string;
+  index: number;
+}
 
 export function ToolRenderer({ part, messageId, index }: ToolRendererProps) {
   switch (part.type) {
