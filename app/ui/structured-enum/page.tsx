@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ArrowLeft, Code, Send, Target } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StructuredEnumCode } from "./StructuredEnumCode";
+import { Textarea } from "@/components/ui/textarea";
 
 function StructuredEnum() {
   const [text, setText] = useState("");
@@ -15,6 +16,7 @@ function StructuredEnum() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [showCode, setShowCode] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,12 +40,26 @@ function StructuredEnum() {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
   };
+
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${Math.min(
+        textareaRef.current.scrollHeight,
+        200
+      )}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [text]);
 
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
@@ -226,12 +242,11 @@ function StructuredEnum() {
                 )}
 
                 {sentiment && !isLoading && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                    {/* Result Header */}
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 my-8 shadow-sm">
                     <div
                       className={`bg-gradient-to-r ${getSentimentColor(
                         sentiment
-                      )} px-8 py-6`}
+                      )} px-8 py-6 rounded-lg`}
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
@@ -329,14 +344,15 @@ function StructuredEnum() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
-                <Input
-                  type="text"
+                <Textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                   placeholder="Enter text to analyze..."
-                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
+                  rows={1}
                   disabled={isLoading}
+                  ref={textareaRef}
                 />
                 <Button
                   type="submit"
@@ -349,7 +365,7 @@ function StructuredEnum() {
               </div>
             </form>
             <p className="text-xs text-gray-500 text-center mt-3">
-              Press Enter to send
+              Press Enter to send, Shift+Enter for new line
             </p>
           </div>
         </div>

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StructuredDataCode } from "./StructuredDataCode";
+import { Textarea } from "@/components/ui/textarea";
 
 function StructuredData() {
   const [dishName, setDishName] = useState("");
@@ -17,6 +18,7 @@ function StructuredData() {
     schema: recipeSchema,
   });
   const recipeRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,12 +33,26 @@ function StructuredData() {
     stop();
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
   };
+
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${Math.min(
+        textareaRef.current.scrollHeight,
+        200
+      )}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [dishName]);
 
   useEffect(() => {
     if (object?.recipe && recipeRef.current) {
@@ -177,7 +193,7 @@ function StructuredData() {
                 {object?.recipe && (
                   <div
                     ref={recipeRef}
-                    className="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden"
+                    className="bg-white rounded-2xl shadow-xl border border-orange-100 my-8 overflow-hidden"
                   >
                     {/* Recipe Header */}
                     <div className="bg-gradient-to-r from-orange-500 to-red-500 px-8 py-6">
@@ -307,14 +323,15 @@ function StructuredData() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
-                <Input
-                  type="text"
+                <Textarea
                   value={dishName}
                   onChange={(e) => setDishName(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                   placeholder="Enter a dish name..."
-                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
+                  rows={1}
                   disabled={isLoading}
+                  ref={textareaRef}
                 />
                 <Button
                   type="submit"
@@ -327,7 +344,7 @@ function StructuredData() {
               </div>
             </form>
             <p className="text-xs text-gray-500 text-center mt-3">
-              Press Enter to send
+              Press Enter to send, Shift+Enter for new line
             </p>
           </div>
         </div>

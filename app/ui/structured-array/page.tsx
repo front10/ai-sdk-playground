@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StructuredArrayCode } from "./StructuredArrayCode";
+import { Textarea } from "@/components/ui/textarea";
 
 function StructuredData() {
   const [pokemonType, setPokemonType] = useState("");
@@ -17,6 +18,7 @@ function StructuredData() {
     schema: pokemonUISchema,
   });
   const pokemonListRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,12 +33,26 @@ function StructuredData() {
     stop();
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
   };
+
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${Math.min(
+        textareaRef.current.scrollHeight,
+        200
+      )}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [pokemonType]);
 
   useEffect(() => {
     if (object && object.length > 0 && pokemonListRef.current) {
@@ -177,7 +193,7 @@ function StructuredData() {
                 {object && object.length > 0 && (
                   <div
                     ref={pokemonListRef}
-                    className="bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden"
+                    className="bg-white rounded-2xl shadow-xl border border-blue-100 my-8 overflow-hidden"
                   >
                     {/* Pokemon List Header */}
                     <div className="bg-gradient-to-r from-blue-500 to-purple-500 px-8 py-6">
@@ -258,14 +274,15 @@ function StructuredData() {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
-                <Input
-                  type="text"
+                <Textarea
                   value={pokemonType}
                   onChange={(e) => setPokemonType(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                   placeholder="Enter a Pokemon type..."
-                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
+                  rows={1}
                   disabled={isLoading}
+                  ref={textareaRef}
                 />
                 <Button
                   type="submit"
@@ -278,7 +295,7 @@ function StructuredData() {
               </div>
             </form>
             <p className="text-xs text-gray-500 text-center mt-3">
-              Press Enter to send
+              Press Enter to send, Shift+Enter for new line
             </p>
           </div>
         </div>
