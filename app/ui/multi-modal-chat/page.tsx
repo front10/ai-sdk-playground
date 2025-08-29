@@ -183,13 +183,13 @@ function MultiModalChat() {
                     key={message.id}
                     className={`flex ${
                       message.role === "user" ? "justify-end" : "justify-start"
-                    }`}
+                    } mb-4`}
                   >
                     <div
-                      className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
+                      className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-lg transition-all duration-200 hover:shadow-xl ${
                         message.role === "user"
-                          ? "bg-blue-500 text-white"
-                          : "bg-white border border-gray-200 text-gray-800 shadow-sm"
+                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
+                          : "bg-white border border-gray-200 text-gray-800 shadow-sm hover:border-gray-300"
                       }`}
                     >
                       {message.parts.map((part, index) => {
@@ -243,21 +243,20 @@ function MultiModalChat() {
                 ))}
 
                 {(status === "submitted" || status === "streaming") && (
-                  <div className="flex justify-start">
-                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
+                  <div className="flex justify-start mb-4">
+                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg">
                       <div className="flex items-center space-x-2">
                         <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
                           <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                             style={{ animationDelay: "0.1s" }}
                           ></div>
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                             style={{ animationDelay: "0.2s" }}
                           ></div>
                         </div>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-600 font-medium">
                           AI is typing...
                         </span>
                       </div>
@@ -335,7 +334,7 @@ function MultiModalChat() {
             )}
 
             <form onSubmit={handleSubmit} className="relative">
-              <div className="flex items-center gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+              <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
                 <label
                   htmlFor="file-input"
                   className="cursor-pointer p-2 text-gray-500 hover:text-gray-700 transition-colors"
@@ -368,7 +367,7 @@ function MultiModalChat() {
                     onClick={stop}
                     variant="destructive"
                     size="icon"
-                    className="w-8 h-8 rounded-full"
+                    className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
                   >
                     <Square className="w-4 h-4 text-white" />
                   </Button>
@@ -377,14 +376,14 @@ function MultiModalChat() {
                     type="submit"
                     disabled={!prompt.trim() || status !== "ready"}
                     size="icon"
-                    className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
+                    className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 disabled:hover:scale-100"
                   >
                     <Send className="w-4 h-4" />
                   </Button>
                 )}
               </div>
             </form>
-            <p className="text-xs text-gray-500 text-center mt-2">
+            <p className="text-xs text-gray-500 text-center mt-3">
               Press Enter to send, Shift+Enter for new line
             </p>
           </div>

@@ -166,27 +166,27 @@ function GenerateImagePage() {
             ) : (
               <div className="px-4 py-6">
                 {isLoading && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg mb-4">
                     <div className="flex items-center gap-3">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
                         <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                           style={{ animationDelay: "0.1s" }}
                         ></div>
                         <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>
-                      <span className="text-gray-600">
+                      <span className="text-gray-600 font-medium">
                         Generating your image...
                       </span>
                     </div>
                   </div>
                 )}
                 {imageSrc && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg">
                     <Image
                       src={imageSrc}
                       alt="Generated Image"
@@ -208,7 +208,7 @@ function GenerateImagePage() {
         <div className="bg-white border-t border-gray-200 px-4 py-4">
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
-              <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+              <div className="flex items-end gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
                 <Textarea
                   ref={textareaRef}
                   value={prompt}
@@ -223,13 +223,13 @@ function GenerateImagePage() {
                   type="submit"
                   disabled={!prompt.trim() || isLoading}
                   size="icon"
-                  className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
+                  className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 disabled:hover:scale-100"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
             </form>
-            <p className="text-xs text-gray-500 text-center mt-2">
+            <p className="text-xs text-gray-500 text-center mt-3">
               Press Enter to send, Shift+Enter for new line
             </p>
           </div>

@@ -115,7 +115,7 @@ function Stream() {
             ) : (
               <div className="px-4 py-6">
                 {completion && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg">
                     <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
                       {completion}
                     </div>
@@ -139,7 +139,7 @@ function Stream() {
               }}
               className="relative"
             >
-              <div className="flex items-end gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+              <div className="flex items-end gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
                 <Textarea
                   ref={textareaRef}
                   value={input}
@@ -156,7 +156,7 @@ function Stream() {
                     onClick={stop}
                     variant="destructive"
                     size="icon"
-                    className="w-8 h-8 rounded-full"
+                    className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
                   >
                     <Square className="w-4 h-4 text-white" />
                   </Button>
@@ -165,14 +165,14 @@ function Stream() {
                     type="submit"
                     disabled={!input.trim()}
                     size="icon"
-                    className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
+                    className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 disabled:hover:scale-100"
                   >
                     <Send className="w-4 h-4" />
                   </Button>
                 )}
               </div>
             </form>
-            <p className="text-xs text-gray-500 text-center mt-2">
+            <p className="text-xs text-gray-500 text-center mt-3">
               Press Enter to send, Shift+Enter for new line
             </p>
           </div>

@@ -525,7 +525,7 @@ function TranscribeAudioPage() {
 
             {!transcription ? (
               <form onSubmit={handleSubmit} className="relative">
-                <div className="flex items-center gap-3 bg-gray-100 rounded-2xl px-4 py-3">
+                <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
                   <label
                     htmlFor="audio-input"
                     className="cursor-pointer p-2 text-gray-500 hover:text-gray-700 transition-colors"
@@ -558,7 +558,7 @@ function TranscribeAudioPage() {
                   <Button
                     type="submit"
                     disabled={!audioFile || isLoading}
-                    className="px-6 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300"
+                    className="px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 disabled:hover:scale-100"
                   >
                     {isLoading ? "Transcribing..." : "Transcribe"}
                   </Button>
@@ -572,7 +572,7 @@ function TranscribeAudioPage() {
                 </p>
               </div>
             )}
-            <p className="text-xs text-gray-500 text-center mt-2">
+            <p className="text-xs text-gray-500 text-center mt-3">
               Supports MP3, WAV, M4A, and other audio formats
             </p>
           </div>

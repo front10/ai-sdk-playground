@@ -69,7 +69,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
     case "input-streaming":
       return (
         <div className="mt-3 first:mt-0">
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 shadow-lg">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-3 h-3 bg-amber-500 rounded-full animate-pulse"></div>
               <span className="text-base font-semibold text-amber-800">
@@ -96,7 +96,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
     case "input-available":
       return (
         <div className="mt-3 first:mt-0">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 shadow-lg">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
               <span className="text-base font-semibold text-blue-800">
@@ -171,7 +171,7 @@ export function WeatherTool({ part, messageId, index }: WeatherToolProps) {
     case "output-error":
       return (
         <div className="mt-3 first:mt-0">
-          <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-6 shadow-lg">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
               <span className="text-base font-semibold text-red-800">
