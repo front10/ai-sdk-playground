@@ -109,11 +109,11 @@ function WebSearchTool() {
                     <Search className="w-8 h-8 text-gray-400" />
                   </div>
                   <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                    Start a conversation
+                    Search the Web with AI
                   </h2>
                   <p className="text-gray-500">
-                    Send a message to begin chatting with the AI assistant. Try
-                    asking about weather in different cities!
+                    Ask questions and get real-time information from the web
+                    with AI-powered search!
                   </p>
                   <div className="mt-6 space-y-3">
                     <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">
@@ -121,13 +121,14 @@ function WebSearchTool() {
                     </div>
                     <div className="space-y-2">
                       <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
-                        &ldquo;What&apos;s the weather like in New York?&rdquo;
+                        &ldquo;What are the latest developments in AI
+                        technology?&rdquo;
                       </div>
                       <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
-                        &ldquo;How&apos;s the weather in Tokyo today?&rdquo;
+                        &ldquo;Find the best restaurants in San Francisco&rdquo;
                       </div>
                       <div className="text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
-                        &ldquo;Tell me about the weather in London&rdquo;
+                        &ldquo;What&apos;s happening in the news today?&rdquo;
                       </div>
                     </div>
                   </div>
