@@ -5,7 +5,7 @@ interface WebSearchToolProps {
   part: WebSearchToolPart;
   messageId: string;
   index: number;
-  sources: string[];
+  sources: SourceUrlUIPart[];
 }
 
 export function WebSearchTool({
@@ -69,12 +69,12 @@ export function WebSearchTool({
                   className="bg-white rounded-md border border-green-200 p-3 hover:bg-green-50 transition-all duration-200 shadow-sm hover:shadow-md hover:border-green-300"
                 >
                   <a
-                    href={source}
+                    href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline text-sm break-all font-medium"
                   >
-                    {source}
+                    {source.url}
                   </a>
                 </div>
               ))}

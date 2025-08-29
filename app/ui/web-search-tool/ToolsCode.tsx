@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
       stopWhen: stepCountIs(2),
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({ sendSources: true });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to generate chat response", details: error },
