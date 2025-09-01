@@ -288,7 +288,7 @@ function TranscribeAudioPage() {
               <h3 className="text-sm font-medium text-red-800">
                 Error occurred
               </h3>
-              <p className="text-sm text-red-700 mt-1">{error.message}</p>
+              <p className="text-sm text-red-700 mt-1">{error}</p>
             </div>
           </div>
         </div>
