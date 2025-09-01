@@ -5,17 +5,28 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { ArrowLeft, Code, Search, Send, Square } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Code,
+  Search,
+  Send,
+  Square,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ToolsCode } from "./ToolsCode";
 import { ToolRenderer, WebSearchToolPart } from "./components";
+import { toast } from "sonner";
 
 function WebSearchTool() {
   const { messages, sendMessage, status, error, stop } = useChat<ChatMessages>({
     transport: new DefaultChatTransport({
       api: "/api/web-search-tool",
     }),
+    onError: async (error) => {
+      toast.error("Web search tool error occurred: " + error.message);
+    },
   });
 
   const [prompt, setPrompt] = useState("");
@@ -86,11 +97,16 @@ function WebSearchTool() {
         </div>
       </div>
 
+      {/* Error Display - Moved higher up for better visibility */}
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mx-4 mt-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700">Error: {error.message}</p>
+        <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-red-800">
+                Error occurred
+              </h3>
+              <p className="text-sm text-red-700 mt-1">{error.message}</p>
             </div>
           </div>
         </div>

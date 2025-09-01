@@ -16,16 +16,13 @@ export async function POST(req: NextRequest) {
       });
 
       if (decision.reason.isRateLimit()) {
-        return new Response(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             error: "Too Many Requests",
             message:
               "You have reached the rate limit for today. Please try again tomorrow.",
-          }),
-          {
-            status: 429,
-            headers: { "Content-Type": "application/json" },
-          }
+          },
+          { status: 429 }
         );
       }
     }
@@ -38,7 +35,10 @@ export async function POST(req: NextRequest) {
     return result.toUIMessageStreamResponse();
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to generate chat response", details: error },
+      {
+        error: error,
+        message: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

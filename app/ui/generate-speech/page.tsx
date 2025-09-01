@@ -1,11 +1,19 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Volume2, Play, ArrowLeft, Send, Code } from "lucide-react";
+import {
+  Volume2,
+  Play,
+  ArrowLeft,
+  Send,
+  Code,
+  AlertCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { GenerateSpeechCode } from "./GenerateSpeechCode";
+import { toast } from "sonner";
 
 function GenerateSpeech() {
   const [text, setText] = useState("");
@@ -56,7 +64,12 @@ function GenerateSpeech() {
       audioRef.current.play();
     } catch (err) {
       console.error("Speech generation error:", err);
-      setError("Failed to generate speech. Please try again.");
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Failed to generate speech. Please try again.";
+      toast.error("Speech generation error occurred: " + errorMessage);
+      setError(errorMessage);
       setHasAudio(false);
     } finally {
       setIsLoading(false);
@@ -157,17 +170,20 @@ function GenerateSpeech() {
         </div>
       </div>
 
-      {/* Error Display */}
+      {/* Error Display - Moved higher up for better visibility */}
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mx-4 mt-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700">{error}</p>
+        <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-red-800">
+                Error occurred
+              </h3>
+              <p className="text-sm text-red-700 mt-1">{error}</p>
             </div>
           </div>
         </div>
       )}
-
       {/* Content Container */}
       <div className="flex-1 overflow-y-auto">
         {showCode ? (

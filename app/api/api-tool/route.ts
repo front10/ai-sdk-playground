@@ -59,16 +59,13 @@ export async function POST(req: NextRequest) {
       });
 
       if (decision.reason.isRateLimit()) {
-        return new Response(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             error: "Too Many Requests",
             message:
               "You have reached the rate limit for today. Please try again tomorrow.",
-          }),
-          {
-            status: 429,
-            headers: { "Content-Type": "application/json" },
-          }
+          },
+          { status: 429 }
         );
       }
     }

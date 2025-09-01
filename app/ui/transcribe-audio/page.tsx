@@ -1,10 +1,20 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { Mic, Upload, ArrowLeft, File, Play, Pause, Code } from "lucide-react";
+import {
+  Mic,
+  Upload,
+  ArrowLeft,
+  File,
+  Play,
+  Pause,
+  Code,
+  AlertCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { TranscribeAudioCode } from "./TranscribeAudioCode";
+import { toast } from "sonner";
 
 interface TranscriptionResponse {
   text: string;
@@ -30,13 +40,15 @@ function TranscribeAudioPage() {
   const [showCode, setShowCode] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!audioFile) {
-      setError("Please select an audio file");
+      const errorMessage = "Please select an audio file";
+      toast.error("Transcription error occurred: " + errorMessage);
+      setError(errorMessage);
       return;
     }
 
@@ -64,11 +76,10 @@ function TranscribeAudioPage() {
       setCurrentTime(0);
       // Don't reset duration as we want to keep it for the transcription result
     } catch (error) {
-      setError(
-        `Error: ${
-          error instanceof Error ? error.message : "Failed to transcribe audio"
-        }`
-      );
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to transcribe audio";
+      toast.error("Transcription error occurred: " + errorMessage);
+      setError(`Error: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -268,12 +279,16 @@ function TranscribeAudioPage() {
         </div>
       </div>
 
-      {/* Error Display */}
+      {/* Error Display - Moved higher up for better visibility */}
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mx-4 mt-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700">{error}</p>
+        <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-red-800">
+                Error occurred
+              </h3>
+              <p className="text-sm text-red-700 mt-1">{error.message}</p>
             </div>
           </div>
         </div>

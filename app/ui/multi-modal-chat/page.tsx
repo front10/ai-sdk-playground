@@ -11,12 +11,14 @@ import {
   ArrowLeft,
   Code,
   ImageIcon,
+  AlertCircle,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { MultiModalChatCode } from "./MultiModalChatCode";
+import { toast } from "sonner";
 
 function MultiModalChat() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
@@ -28,6 +30,9 @@ function MultiModalChat() {
     transport: new DefaultChatTransport({
       api: "/api/multi-modal-chat",
     }),
+    onError: async (error) => {
+      toast.error("Multi-modal chat error occurred: " + error.message);
+    },
   });
 
   const [prompt, setPrompt] = useState("");
@@ -126,16 +131,6 @@ function MultiModalChat() {
           </div>
         </div>
       </div>
-
-      {error && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mx-4 mt-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700">Error: {error.message}</p>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto">
@@ -242,6 +237,22 @@ function MultiModalChat() {
                   </div>
                 ))}
 
+                {/* Error Display - Moved higher up for better visibility */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <h3 className="text-sm font-medium text-red-800">
+                          Error occurred
+                        </h3>
+                        <p className="text-sm text-red-700 mt-1">
+                          {error.message}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {(status === "submitted" || status === "streaming") && (
                   <div className="flex justify-start mb-4">
                     <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg">
@@ -252,7 +263,8 @@ function MultiModalChat() {
                             className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                             style={{ animationDelay: "0.1s" }}
                           ></div>
-                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                             style={{ animationDelay: "0.2s" }}
                           ></div>
                         </div>

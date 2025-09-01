@@ -30,7 +30,7 @@ export const aj = arcjet({
       //characteristics: ["ip.src"],
       refillRate: 15, // Refill 10 tokens per interval
       interval: "1d", // Refill every day
-      capacity: 10, // Bucket capacity of 10 tokens
+      capacity: 40, // Bucket capacity of 10 tokens
     }),
   ],
 });

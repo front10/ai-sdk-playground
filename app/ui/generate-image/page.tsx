@@ -2,11 +2,19 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ImageIcon, Send, ArrowLeft, Code, Palette } from "lucide-react";
+import {
+  ImageIcon,
+  Send,
+  ArrowLeft,
+  Code,
+  Palette,
+  AlertCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { GenerateImageCode } from "./GenerateImageCode";
+import { toast } from "sonner";
 
 function GenerateImagePage() {
   const [prompt, setPrompt] = useState("");
@@ -41,11 +49,10 @@ function GenerateImagePage() {
       setImageSrc(`data:image/png;base64,${imageBase64}`);
       setPrompt("");
     } catch (error) {
-      setError(
-        `Error: ${
-          error instanceof Error ? error.message : "Failed to generate image"
-        }`
-      );
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to generate image";
+      toast.error("Image generation error occurred: " + errorMessage);
+      setError(`Error: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -115,12 +122,16 @@ function GenerateImagePage() {
         </div>
       </div>
 
-      {/* Error Display */}
+      {/* Error Display - Moved higher up for better visibility */}
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mx-4 mt-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700">{error}</p>
+        <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-red-800">
+                Error occurred
+              </h3>
+              <p className="text-sm text-red-700 mt-1">{error}</p>
             </div>
           </div>
         </div>

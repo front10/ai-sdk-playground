@@ -12,17 +12,22 @@ import {
   Send,
   Square,
   Layers,
+  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ToolsCode } from "./ToolsCode";
 import { ToolRenderer } from "./components";
+import { toast } from "sonner";
 
 function MultipleTools() {
   const { messages, sendMessage, status, error, stop } = useChat<ChatMessages>({
     transport: new DefaultChatTransport({
       api: "/api/multiple-tools",
     }),
+    onError: async (error) => {
+      toast.error("Multiple tools error occurred: " + error.message);
+    },
   });
 
   const [prompt, setPrompt] = useState("");
@@ -92,16 +97,6 @@ function MultipleTools() {
           </div>
         </div>
       </div>
-
-      {error && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 mx-4 mt-4">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm text-red-700">Error: {error.message}</p>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto">
@@ -187,6 +182,23 @@ function MultipleTools() {
                     </div>
                   </div>
                 ))}
+
+                {/* Error Display - Moved higher up for better visibility */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <h3 className="text-sm font-medium text-red-800">
+                          Error occurred
+                        </h3>
+                        <p className="text-sm text-red-700 mt-1">
+                          {error.message}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {(status === "submitted" || status === "streaming") && (
                   <div className="flex justify-start mb-4">

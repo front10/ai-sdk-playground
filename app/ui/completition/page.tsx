@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { PenTool, Send, ArrowLeft, Code } from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, Code, PenTool, Send } from "lucide-react";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { CompletitionCode } from "./CompletitionCode";
 
 function Completition() {
@@ -30,19 +31,17 @@ function Completition() {
         body: JSON.stringify({ prompt: inputValue.trim() }),
       });
       const data = await apiResponse.json();
-      console.log("🚀 ~ handleSubmit ~ data:", data);
 
-      if (!apiResponse.ok) {
+      if (data.error) {
         throw new Error(data.error || "Something went wrong");
       }
 
       setResponse(data.steps[0].content[0].text);
     } catch (error) {
-      setResponse(
-        `Error: ${
-          error instanceof Error ? error.message : "Something went wrong"
-        }`
-      );
+      const errorMessage =
+        error instanceof Error ? error.message : "Something went wrong";
+      toast.error("Completition error occurred: " + errorMessage);
+      setResponse(`Error: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }

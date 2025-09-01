@@ -2,11 +2,12 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useCompletion } from "@ai-sdk/react";
-import { Zap, Square, Send, ArrowLeft, Code } from "lucide-react";
+import { Zap, Square, Send, ArrowLeft, Code, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { StreamCode } from "./StreamCode";
+import { toast } from "sonner";
 
 function Stream() {
   const [showCode, setShowCode] = useState(false);
@@ -20,9 +21,18 @@ function Stream() {
     handleSubmit,
     isLoading,
     stop,
+    error,
   } = useCompletion({
     api: "/api/stream",
+    onError: (error) => {
+      console.log("🚀 ~ Stream ~ error:", error);
+      toast.error("Stream error occurred: " + error.message);
+    },
   });
+
+  console.log("🚀 ~ Stream ~ error:", error);
+  console.log("🚀 ~ Stream ~ completion:", completion);
+  console.log("🚀 ~ Stream ~ isLoading:", isLoading);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -75,13 +85,28 @@ function Stream() {
         </div>
       </div>
 
+      {/* Error Display - Moved higher up for better visibility */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-red-800">
+                Error occurred
+              </h3>
+              <p className="text-sm text-red-700 mt-1">{error.message}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Content Container */}
       <div className="flex-1 overflow-y-auto">
         {showCode ? (
           <StreamCode />
         ) : (
           <div className="max-w-3xl mx-auto">
-            {!completion && !isLoading ? (
+            {!completion && !isLoading && !error ? (
               <div className="flex items-center justify-center h-full px-4  py-10">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -118,6 +143,24 @@ function Stream() {
                   <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg">
                     <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
                       {completion}
+                    </div>
+                  </div>
+                )}
+                {isLoading && (
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                      <div
+                        className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+                        style={{ animationDelay: "0.2s" }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+                        style={{ animationDelay: "0.4s" }}
+                      ></div>
+                      <span className="text-gray-500 text-sm ml-2">
+                        Generating response...
+                      </span>
                     </div>
                   </div>
                 )}
