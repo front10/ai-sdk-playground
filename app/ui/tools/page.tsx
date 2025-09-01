@@ -5,14 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import {
-  ArrowLeft,
-  Code,
-  MessageCircle,
-  Send,
-  Square,
-  Wrench,
-} from "lucide-react";
+import { ArrowLeft, Code, Send, Square, Wrench } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ToolsCode } from "./ToolsCode";

@@ -1,3 +1,4 @@
+import { aj } from "@/arcject/config";
 import { openai } from "@ai-sdk/openai";
 import { experimental_generateSpeech as generateSpeech } from "ai";
 import { NextRequest, NextResponse } from "next/server";
@@ -5,6 +6,27 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const { text } = await request.json();
+
+    // Skip Arcjet protection in development mode
+    if (!process.env.IS_DEV_MODE) {
+      const decision = await aj.protect(request, {
+        requested: 1,
+      });
+
+      if (decision.reason.isRateLimit()) {
+        return new Response(
+          JSON.stringify({
+            error: "Too Many Requests",
+            message:
+              "You have reached the rate limit for today. Please try again tomorrow.",
+          }),
+          {
+            status: 429,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+    }
 
     const { audio } = await generateSpeech({
       model: openai.speech("tts-1"),
