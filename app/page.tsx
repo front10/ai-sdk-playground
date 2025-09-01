@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
+    <div className="relative min-dvh-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <FlickeringGrid
           className="absolute inset-0 z-0 size-full"
