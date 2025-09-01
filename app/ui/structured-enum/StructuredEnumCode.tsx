@@ -46,7 +46,7 @@ function StructuredEnum() {
 
   
   return (
-          <div className="flex flex-col dvh-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Header, sentiment analysis display, and input */}
     </div>
   );

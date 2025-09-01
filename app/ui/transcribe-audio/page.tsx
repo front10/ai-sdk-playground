@@ -228,7 +228,7 @@ function TranscribeAudioPage() {
   }, [audioUrl]);
 
   return (
-    <div className="flex flex-col dvh-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Audio element - always present when we have an audioUrl */}
       {audioUrl && (
         <audio

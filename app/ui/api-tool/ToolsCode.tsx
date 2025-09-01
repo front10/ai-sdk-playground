@@ -29,7 +29,7 @@ function ApiTool() {
   };
 
   return (
-          <div className="flex flex-col dvh-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Messages Container */}
       <div className="px-4 py-6 space-y-6">
         {messages.map((message) => (
