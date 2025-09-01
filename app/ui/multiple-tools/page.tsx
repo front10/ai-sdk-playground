@@ -6,19 +6,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import {
+  AlertCircle,
   ArrowLeft,
   Code,
-  MessageCircle,
+  Layers,
   Send,
   Square,
-  Layers,
-  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { ToolsCode } from "./ToolsCode";
 import { ToolRenderer } from "./components";
-import { toast } from "sonner";
 
 function MultipleTools() {
   const { messages, sendMessage, status, error, stop } = useChat<ChatMessages>({

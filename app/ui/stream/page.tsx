@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { useCompletion } from "@ai-sdk/react";
-import { Zap, Square, Send, ArrowLeft, Code, AlertCircle } from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { StreamCode } from "./StreamCode";
+import { useCompletion } from "@ai-sdk/react";
+import { AlertCircle, ArrowLeft, Code, Send, Square, Zap } from "lucide-react";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { StreamCode } from "./StreamCode";
 
 function Stream() {
   const [showCode, setShowCode] = useState(false);

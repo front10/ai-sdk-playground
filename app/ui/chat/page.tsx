@@ -1,20 +1,20 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
-import {
-  MessageCircle,
-  Square,
-  Send,
-  ArrowLeft,
-  Code,
-  AlertCircle,
-} from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ChatCode } from "./ChatCode";
+import { useChat } from "@ai-sdk/react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Code,
+  MessageCircle,
+  Send,
+  Square,
+} from "lucide-react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { ChatCode } from "./ChatCode";
 
 function Chat() {
   const { messages, sendMessage, status, error, stop } = useChat({

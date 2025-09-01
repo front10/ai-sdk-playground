@@ -15,9 +15,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { ToolsCode } from "./ToolsCode";
 import { ToolRenderer, WebSearchToolPart } from "./components";
-import { toast } from "sonner";
 
 function WebSearchTool() {
   const { messages, sendMessage, status, error, stop } = useChat<ChatMessages>({

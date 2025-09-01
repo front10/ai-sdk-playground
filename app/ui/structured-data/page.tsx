@@ -1,22 +1,14 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { recipeSchema } from "@/app/api/sctructured-data/schema";
-import {
-  AlertCircle,
-  ArrowLeft,
-  Code,
-  Send,
-  Settings,
-  Square,
-} from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { StructuredDataCode } from "./StructuredDataCode";
 import { Textarea } from "@/components/ui/textarea";
+import { experimental_useObject as useObject } from "@ai-sdk/react";
+import { AlertCircle, ArrowLeft, Code, Send, Settings } from "lucide-react";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { StructuredDataCode } from "./StructuredDataCode";
 
 function StructuredData() {
   const [dishName, setDishName] = useState("");
@@ -155,41 +147,24 @@ function StructuredData() {
             ) : (
               <div className="space-y-6 px-4 py-6">
                 {isLoading && (
-                  <div className="bg-white rounded-2xl shadow-lg border border-orange-100 p-8">
-                    <div className="flex items-center justify-center space-x-4">
-                      <div className="relative">
-                        <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center">
-                          <svg
-                            className="w-6 h-6 text-orange-500 animate-spin"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 6v6l4 2"
-                            />
-                          </svg>
+                  <div className="flex justify-start mb-4">
+                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
                         </div>
+                        <span className="text-sm text-gray-600 font-medium">
+                          Generating recipe...
+                        </span>
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-800">
-                          Crafting your recipe...
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          Our AI chef is preparing something delicious
-                        </p>
-                      </div>
-                      <Button
-                        onClick={handleStop}
-                        variant="destructive"
-                        size="icon"
-                        className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 flex-shrink-0"
-                      >
-                        <Square className="w-4 h-4 text-white" />
-                      </Button>
                     </div>
                   </div>
                 )}

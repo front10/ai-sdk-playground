@@ -1,20 +1,21 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import {
-  Mic,
-  Upload,
-  ArrowLeft,
-  File,
-  Play,
-  Pause,
-  Code,
   AlertCircle,
+  ArrowLeft,
+  Code,
+  File,
+  Mic,
+  Pause,
+  Play,
+  RotateCcw,
+  Upload,
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { TranscribeAudioCode } from "./TranscribeAudioCode";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { TranscribeAudioCode } from "./TranscribeAudioCode";
 
 interface TranscriptionResponse {
   text: string;
@@ -265,14 +266,18 @@ function TranscribeAudioPage() {
               className="flex items-center gap-2"
             >
               <Code className="w-4 h-4" />
-              {showCode ? "Hide Code" : "View Code"}
+              <span className="inline">
+                {showCode ? "Hide Code" : "View Code"}
+              </span>
             </Button>
+
             {transcription && !showCode && (
               <Button
                 onClick={handleNewTranscription}
                 className="bg-blue-500 hover:bg-blue-600"
               >
-                New Transcription
+                <RotateCcw className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">New Transcription</span>
               </Button>
             )}
           </div>
@@ -334,22 +339,24 @@ function TranscribeAudioPage() {
             ) : (
               <div className="px-4 py-6">
                 {isLoading && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                    <div className="flex items-center gap-3">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.1s" }}
-                        ></div>
-                        <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.2s" }}
-                        ></div>
+                  <div className="flex justify-start mb-4">
+                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                        <span className="text-sm text-gray-600 font-medium">
+                          Transcribing your audio...
+                        </span>
                       </div>
-                      <span className="text-gray-600">
-                        Transcribing your audio...
-                      </span>
                     </div>
                   </div>
                 )}

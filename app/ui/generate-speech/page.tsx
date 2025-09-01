@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import {
-  Volume2,
-  Play,
-  ArrowLeft,
-  Send,
-  Code,
-  AlertCircle,
-} from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { GenerateSpeechCode } from "./GenerateSpeechCode";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Code,
+  Play,
+  Plus,
+  Send,
+  Volume2,
+} from "lucide-react";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { GenerateSpeechCode } from "./GenerateSpeechCode";
 
 function GenerateSpeech() {
   const [text, setText] = useState("");
@@ -163,7 +164,8 @@ function GenerateSpeech() {
                 onClick={handleNewGeneration}
                 className="bg-blue-500 hover:bg-blue-600"
               >
-                New Generation
+                <Plus className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">New Generation</span>
               </Button>
             )}
           </div>
@@ -226,22 +228,24 @@ function GenerateSpeech() {
             ) : (
               <div className="px-4 py-6">
                 {isLoading && (
-                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                        <div
-                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.1s" }}
-                        ></div>
-                        <div
-                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.2s" }}
-                        ></div>
+                  <div className="flex justify-start mb-4">
+                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                        <span className="text-sm text-gray-600 font-medium">
+                          Generating speech...
+                        </span>
                       </div>
-                      <span className="text-gray-600 font-medium">
-                        Generating speech...
-                      </span>
                     </div>
                   </div>
                 )}
