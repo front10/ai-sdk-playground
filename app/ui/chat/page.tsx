@@ -90,6 +90,7 @@ function Chat() {
         </div>
       </div>
 
+      {/* Messages Container - Add padding bottom to prevent overlap with input */}
       <div className="flex-1 overflow-y-auto pb-32">
         {showCode ? (
           <ChatCode />
@@ -161,6 +162,7 @@ function Chat() {
                   </div>
                 ))}
 
+                {/* Error Display */}
                 {error && (
                   <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
                     <div className="flex items-start gap-3">
@@ -206,6 +208,7 @@ function Chat() {
         )}
       </div>
 
+      {/* Input Area - Fixed at bottom */}
       {!showCode && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 z-10">
           <div className="max-w-3xl mx-auto">
