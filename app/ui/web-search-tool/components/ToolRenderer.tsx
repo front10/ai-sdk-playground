@@ -18,12 +18,14 @@ export function ToolRenderer({
   switch (part.type) {
     case "tool-web_search_preview":
       return (
-        <WebSearchTool
-          part={part}
-          messageId={messageId}
-          index={index}
-          sources={sources}
-        />
+        <div className="my-1">
+          <WebSearchTool
+            part={part}
+            messageId={messageId}
+            index={index}
+            sources={sources}
+          />
+        </div>
       );
 
     default:

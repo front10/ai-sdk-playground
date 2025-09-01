@@ -3,7 +3,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { recipeSchema } from "@/app/api/sctructured-data/schema";
-import { AlertCircle, ArrowLeft, Code, Send, Settings } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Code,
+  Send,
+  Settings,
+  Square,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,9 +72,9 @@ function StructuredData() {
   }, [object?.recipe]);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3">
+    <div className="flex flex-col h-dvh bg-gray-50 relative overflow-hidden">
+      {/* Header - Fixed at top with mobile safe area */}
+      <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-3 z-20 safe-area-inset-top">
         <div className="max-w-3xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link
@@ -93,27 +100,27 @@ function StructuredData() {
         </div>
       </div>
 
-      {/* Error Display - Moved higher up for better visibility */}
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <h3 className="text-sm font-medium text-red-800">
-                Error occurred
-              </h3>
-              <p className="text-sm text-red-700 mt-1">{error.message}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Content Container */}
-      <div className="flex-1 overflow-y-auto">
+      {/* Content Container - Add padding top and bottom to prevent overlap */}
+      <div className="flex-1 overflow-y-auto pt-20 pb-40 overscroll-y-contain">
         {showCode ? (
           <StructuredDataCode />
         ) : (
           <div className="max-w-3xl mx-auto">
+            {/* Error Display */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg mx-4 mt-4 p-4 shadow-sm">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium text-red-800">
+                      Error occurred
+                    </h3>
+                    <p className="text-sm text-red-700 mt-1">{error.message}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {!object?.recipe && !isLoading ? (
               <div className="flex items-center justify-center h-full px-4 py-10">
                 <div className="text-center">
@@ -146,7 +153,7 @@ function StructuredData() {
                 </div>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-6 px-4 py-6">
                 {isLoading && (
                   <div className="bg-white rounded-2xl shadow-lg border border-orange-100 p-8">
                     <div className="flex items-center justify-center space-x-4">
@@ -178,9 +185,10 @@ function StructuredData() {
                       <Button
                         onClick={handleStop}
                         variant="destructive"
-                        className="px-4 py-2"
+                        size="icon"
+                        className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 flex-shrink-0"
                       >
-                        Stop
+                        <Square className="w-4 h-4 text-white" />
                       </Button>
                     </div>
                   </div>
@@ -313,9 +321,9 @@ function StructuredData() {
         )}
       </div>
 
-      {/* Input Area */}
+      {/* Input Area - Fixed at bottom with mobile safe area */}
       {!showCode && (
-        <div className="bg-white border-t border-gray-200 px-4 py-4">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 z-10 safe-area-inset-bottom">
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit} className="relative">
               <div className="flex items-end gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-lg hover:shadow-xl transition-all duration-200">
@@ -324,16 +332,20 @@ function StructuredData() {
                   onChange={(e) => setDishName(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Enter a dish name..."
-                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 max-h-48 resize-none text-[16px] leading-6"
                   rows={1}
                   disabled={isLoading}
                   ref={textareaRef}
+                  style={{
+                    WebkitAppearance: "none",
+                    WebkitBorderRadius: "0px",
+                  }}
                 />
                 <Button
                   type="submit"
                   disabled={!dishName.trim() || isLoading}
                   size="icon"
-                  className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 disabled:hover:scale-100"
+                  className="w-10 h-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 disabled:hover:scale-100 flex-shrink-0"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
