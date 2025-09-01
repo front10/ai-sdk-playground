@@ -139,6 +139,11 @@ select {
 
 /* Handle viewport units for mobile */
 .mobile-vh {
-  height: 100vh;
+  height: 100dvh;
   height: -webkit-fill-available;
+}
+
+.mobile-container {
+  height: 100vh; /* fallback */
+  height: 100dvh; /* modern browsers */
 }
