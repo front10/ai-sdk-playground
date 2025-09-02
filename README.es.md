@@ -31,7 +31,7 @@ Obtener texto aleatorio de vuelta de la IA está bien para el chat, pero cuando 
 
 ```typescript
 const { completion } = await streamText({
-  model: openai("gpt-4"),
+  model: openai("gpt-5"),
   schema: z.object({
     title: z.string(),
     ingredients: z.array(z.string()),
@@ -69,7 +69,7 @@ Ahora tu IA puede verificar el clima, buscar en la web, llamar APIs - lo que qui
 
 ## La Parte Buena
 
-Es genial para empezar, puedes tener prototipos listos súper rápido y construir sobre ellos, es divertido y aprendes mucho sobre cómo se pueden construir las aplicaciones modernas.
+Es genial para empezar, puedes tener prototipos listos súper rápido y construir sobre ellos, es divertido y aprendes mucho sobre cómo se pueden construir las aplicaciones modernas. Además, como el AI SDK de Vercel ofrece un enfoque estandarizado para interactuar con LLMs, te permite cambiar entre proveedores con facilidad mientras usas la misma API para todos los proveedores.
 
 ## La Parte No Tan Buena
 

@@ -31,7 +31,7 @@ Getting random text back from AI is fine for chat, but when you actually want to
 
 ```typescript
 const { completion } = await streamText({
-  model: openai("gpt-4"),
+  model: openai("gpt-5"),
   schema: z.object({
     title: z.string(),
     ingredients: z.array(z.string()),
@@ -65,7 +65,7 @@ Now your AI can check the weather, search the web, call APIs - whatever you want
 
 ## The Good Part
 
-It is great for starting, you can have prototypes ready super fast and build upon them, is fun and you learn a lot of how modern apps can be build.
+It is great for starting, you can have prototypes ready super fast and build upon them, is fun and you learn a lot of how modern apps can be build. Also as the AI SDK of Vercel offers a standardized approach to interacting with LLMs allows you to switch between providers with ease while using the same API for all providers.
 
 ## The not so good Part
 
