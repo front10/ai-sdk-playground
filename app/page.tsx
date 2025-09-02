@@ -1,6 +1,6 @@
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { features } from "@/data/featured-tools";
-import { ChevronRight, ExternalLink, FileText, Globe } from "lucide-react";
+import { ChevronRight, ExternalLink, FileText } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {

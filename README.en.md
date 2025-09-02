@@ -63,13 +63,17 @@ const { messages } = useChat({
 
 Now your AI can check the weather, search the web, call APIs - whatever you want to give it access to.
 
-## Good Part
+## The Good Part
 
 It is great for starting, you can have prototypes ready super fast and build upon them, is fun and you learn a lot of how modern apps can be build.
 
 ## The not so good Part
 
 It can for sure abstract you enough that you miss stuff on how the core of the AI is working, so going a step down and know how to interact with this LLMs without a framework that "holds your hand" is super beneficial even if when going to develop something you end up most of the time using this kind of frameworks.
+
+## Extra
+
+I did not use in my demo buy vercel also offers a lot of already build components that have to do with this ai-chat bot like applications, [Vercel Ai Elements](https://ai-sdk.dev/elements/overview), it is worth to check
 
 ## Resources I Used
 

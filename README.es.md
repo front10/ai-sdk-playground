@@ -75,6 +75,10 @@ Es genial para empezar, puedes tener prototipos listos súper rápido y construi
 
 Definitivamente puede abstraerte lo suficiente como para que te pierdas cosas sobre cómo funciona el núcleo de la IA, así que dar un paso hacia abajo y saber cómo interactuar con estos LLMs sin un framework que "te lleve de la mano" es súper beneficioso incluso si cuando vas a desarrollar algo terminas usando la mayor parte del tiempo este tipo de frameworks.
 
+## Extra
+
+No lo usé en mi demo pero Vercel también ofrece muchos componentes ya construidos que tienen que ver con este tipo de aplicaciones de chat-bot de IA, [Vercel Ai Elements](https://ai-sdk.dev/elements/overview), vale la pena revisarlo
+
 ## Recursos que Usé
 
 - [Documentación de AI SDK](https://sdk.vercel.ai) - Las cosas oficiales
