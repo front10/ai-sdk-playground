@@ -51,6 +51,14 @@ export async function POST(req: NextRequest) {
       stopWhen: stepCountIs(1),
     });
 
+    result.usage.then((usage) => {
+      console.log({
+        inputTokens: usage.inputTokens,
+        outputTokens: usage.outputTokens,
+        totalTokens: usage.totalTokens,
+      });
+    });
+
     return result.toUIMessageStreamResponse({ sendSources: true });
   } catch (error) {
     return NextResponse.json(

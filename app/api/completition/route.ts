@@ -29,6 +29,14 @@ export async function POST(req: NextRequest) {
       prompt,
     });
 
+    if (response.usage) {
+      console.log({
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        totalTokens: response.usage.totalTokens,
+      });
+    }
+
     return NextResponse.json(response);
   } catch (error) {
     return NextResponse.json(

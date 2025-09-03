@@ -31,6 +31,14 @@ export async function POST(req: NextRequest) {
       prompt: `Classify the sentiment of the following text: ${text}`,
     });
 
+    if (result.usage) {
+      console.log({
+        inputTokens: result.usage.inputTokens,
+        outputTokens: result.usage.outputTokens,
+        totalTokens: result.usage.totalTokens,
+      });
+    }
+
     return NextResponse.json(result.object);
   } catch (error) {
     return NextResponse.json(

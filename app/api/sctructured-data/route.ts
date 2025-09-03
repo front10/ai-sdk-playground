@@ -32,6 +32,14 @@ export async function POST(req: NextRequest) {
       prompt: `Generate a recipe for ${dish}`,
     });
 
+    result.usage.then((usage) => {
+      console.log({
+        inputTokens: usage.inputTokens,
+        outputTokens: usage.outputTokens,
+        totalTokens: usage.totalTokens,
+      });
+    });
+
     return result.toTextStreamResponse();
   } catch (error) {
     return NextResponse.json(

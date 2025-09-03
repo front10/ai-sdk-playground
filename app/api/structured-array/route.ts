@@ -32,6 +32,14 @@ export async function POST(req: NextRequest) {
       prompt: `Generate a list of 5 ${type} type pokemon`,
     });
 
+    result.usage.then((usage) => {
+      console.log({
+        inputTokens: usage.inputTokens,
+        outputTokens: usage.outputTokens,
+        totalTokens: usage.totalTokens,
+      });
+    });
+
     return result.toTextStreamResponse();
   } catch (error) {
     return NextResponse.json(

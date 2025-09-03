@@ -31,6 +31,14 @@ export async function POST(req: NextRequest) {
       messages: convertToModelMessages(messages),
     });
 
+    result.usage.then((usage) => {
+      console.log({
+        inputTokens: usage.inputTokens,
+        outputTokens: usage.outputTokens,
+        totalTokens: usage.totalTokens,
+      });
+    });
+
     return result.toUIMessageStreamResponse();
   } catch (error) {
     return NextResponse.json(
