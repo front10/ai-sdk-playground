@@ -101,16 +101,6 @@ export default function Home() {
               <ExternalLink className="w-4 h-4" />
               AI SDK Docs
             </a>
-
-            <a
-              className="flex items-center gap-2 hover:text-gray-700 transition-colors"
-              href="https://www.youtube.com/watch?v=iS5tZ9WdO0k"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalLink className="w-4 h-4" />
-              Tutorial
-            </a>
           </div>
         </div>
       </footer>
