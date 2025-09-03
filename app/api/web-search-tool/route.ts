@@ -26,7 +26,6 @@ export async function POST(req: NextRequest) {
   try {
     const { messages }: { messages: ChatMessages[] } = await req.json();
 
-    // Skip Arcjet protection in development mode
     if (!process.env.IS_DEV_MODE) {
       const decision = await aj.protect(req, {
         requested: 1,

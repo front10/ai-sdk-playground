@@ -1,11 +1,13 @@
 import { aj } from "@/arcject/config";
-import { NextRequest, NextResponse } from "next/server";
 import { openai } from "@ai-sdk/openai";
-import { experimental_generateImage as generateImage } from "ai";
+import { convertToModelMessages, streamText, UIMessage, UIDataTypes } from "ai";
+import { NextRequest, NextResponse } from "next/server";
+
+export type ChatMessages = UIMessage<never, UIDataTypes>;
 
 export async function POST(req: NextRequest) {
   try {
-    const { prompt } = await req.json();
+    const { messages }: { messages: ChatMessages[] } = await req.json();
 
     if (!process.env.IS_DEV_MODE) {
       const decision = await aj.protect(req, {
@@ -24,22 +26,24 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const { image } = await generateImage({
-      model: openai.imageModel("dall-e-3"),
-      prompt,
-      size: "1024x1024",
+    const result = streamText({
+      model: openai.responses("gpt-5-nano"),
+      messages: convertToModelMessages(messages),
       providerOptions: {
         openai: {
-          style: "vivid",
-          quality: "hd",
+          reasoningEffort: "low",
+          reasoningSummary: "auto",
         },
       },
     });
 
-    return NextResponse.json(image.base64);
+    return result.toUIMessageStreamResponse();
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to generate image", details: error },
+      {
+        error: error,
+        message: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }
