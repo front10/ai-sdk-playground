@@ -165,11 +165,32 @@ export const features = [
   },
   {
     title: "Gen Image Tool",
-    description: "AI multi-modal chat with image generation capabilities.",
+    description:
+      "AI multi-modal chat with image generation capabilities. We are usign imageKit for it",
     href: "/ui/gen-image-tool",
     icon: ImageIcon,
     gradient: "from-pink-500 to-rose-600",
     bgGradient: "from-pink-50 to-rose-50",
+    category: "tools",
+  },
+  {
+    title: "Client-Side Tools",
+    description:
+      "AI-powered image editing tools with background removal and replacement capabilities using ImageKit.",
+    href: "/ui/client-side-tools",
+    icon: Wrench,
+    gradient: "from-emerald-500 to-teal-600",
+    bgGradient: "from-emerald-50 to-teal-50",
+    category: "tools",
+  },
+  {
+    title: "MCP Tools",
+    description:
+      "AI chat with Model Context Protocol (MCP) tools integration. This demo uses MockMCP to showcase dynamic tool capabilities.",
+    href: "/ui/mcp-tools",
+    icon: Settings,
+    gradient: "from-purple-500 to-violet-600",
+    bgGradient: "from-purple-50 to-violet-50",
     category: "tools",
   },
 

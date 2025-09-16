@@ -1,11 +1,11 @@
 "use client";
 
-import { ChatMessages } from "@/app/api/gen-image-tool/route";
+import type { ChatMessage } from "@/app/api/client-side-tools/route";
 import { Button } from "@/components/ui/button";
 import { SuggestionButtons } from "@/components/ui/suggestion-buttons";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { DefaultChatTransport, lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import {
   AlertCircle,
   ArrowLeft,
@@ -19,20 +19,69 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { GenImageToolCode } from "./GenImageToolCode";
+import { ClientSideToolsCode } from "./ClientSideToolsCode";
+import { ToolRenderer } from "./components";
 
-function GenImageTool() {
+function buildTransformationUrl(baseUrl: string, transformation: string): string  {
+  const separator = baseUrl.includes("?") ? "&" : "?";
+  return `${baseUrl}${separator}tr=${transformation}`;
+}
+
+function ClientSideTools() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
   const [showCode, setShowCode] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { messages, sendMessage, status, error, stop } = useChat<ChatMessages>({
+  const { messages, sendMessage, status, error, stop, addToolResult } = useChat<ChatMessage>({
     transport: new DefaultChatTransport({
-      api: "/api/gen-image-tool",
+      api: "/api/client-side-tools",
     }),
+
     onError: async (error) => {
       toast.error("Gen image tool error occurred: " + error.message);
+    },
+    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
+    async onToolCall({ toolCall }) {
+      if (toolCall.dynamic) {
+        return;
+      }
+      switch (toolCall.toolName) {
+        case "changeBackground":
+          {
+            const { imageUrl, backgroundPrompt } = toolCall.input;
+
+            const transformation = `e-changebg-prompt-${backgroundPrompt}`;
+            const transformedUrl = buildTransformationUrl(
+              imageUrl,
+              transformation
+            );
+
+            addToolResult({
+              tool: "changeBackground",
+              toolCallId: toolCall.toolCallId,
+              output: transformedUrl,
+            });
+          }
+          break;
+        case "removeBackground":
+          {
+            const { imageUrl } = toolCall.input;
+
+            const transformation = `e-bgremove`;
+            const transformedUrl = buildTransformationUrl(
+              imageUrl,
+              transformation
+            );
+
+            addToolResult({
+              tool: "removeBackground",
+              toolCallId: toolCall.toolCallId,
+              output: transformedUrl,
+            });
+          }
+          break;
+      }
     },
   });
 
@@ -147,7 +196,7 @@ function GenImageTool() {
       {/* Messages Container - Add padding top and bottom to prevent overlap */}
       <div className="flex-1 overflow-y-auto pt-20 pb-40 overscroll-y-contain">
         {showCode ? (
-          <GenImageToolCode />
+          <ClientSideToolsCode />
         ) : (
           <div className="max-w-3xl mx-auto">
             {messages.length === 0 ? (
@@ -231,62 +280,16 @@ function GenImageTool() {
                             return null;
 
                           case "tool-generateImage":
-                            switch (part.state) {
-                              case "input-streaming":
-                                return (
-                                  <div
-                                    key={`${message.id}-${index}-image`}
-                                    className="whitespace-pre-wrap leading-relaxed"
-                                  >
-                                    Generating image: {part.input?.prompt}
-                                  </div>
-                                );
-                              case "input-available":
-                                return (
-                                  <div
-                                    key={`${message.id}-${index}-image`}
-                                    className="whitespace-pre-wrap leading-relaxed"
-                                  >
-                                    <div className="flex items-center justify-center w-[500px] h-[500px] bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
-                                      <div className="text-center">
-                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-2"></div>
-                                        <p className="text-gray-500 text-sm">
-                                          Generating image...
-                                        </p>
-                                        {part.input?.prompt && (
-                                          <p className="text-gray-400 text-xs mt-1 max-w-xs truncate">
-                                            &quot;{part.input.prompt}&quot;
-                                          </p>
-                                        )}
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
-                              case "output-available":
-                                return (
-                                  <div
-                                    key={`${message.id}-${index}-image`}
-                                    className="whitespace-pre-wrap leading-relaxed"
-                                  >
-                                    <Image
-                                      src={`data:image/png;base64,${part.output}`}
-                                      alt="Generated image"
-                                      width={500}
-                                      height={500}
-                                    />
-                                  </div>
-                                );
-                              case "output-error":
-                                return (
-                                  <div
-                                    key={`${message.id}-${index}-image`}
-                                    className="whitespace-pre-wrap leading-relaxed text-red-500"
-                                  >
-                                    Error: {part.errorText}
-                                  </div>
-                                );
-                            }
-                            return null;
+                          case "tool-changeBackground":
+                          case "tool-removeBackground":
+                            return (
+                              <ToolRenderer
+                                key={`${message.id}-${index}-tool`}
+                                part={part}
+                                messageId={message.id}
+                                index={index}
+                              />
+                            );
 
                           default:
                             return null;
@@ -469,4 +472,4 @@ function GenImageTool() {
   );
 }
 
-export default GenImageTool;
+export default ClientSideTools;
