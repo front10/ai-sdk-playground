@@ -96,7 +96,7 @@ export const features = [
     title: "Structured Data",
     description:
       "Generate structured content like recipes with AI-powered object generation.",
-    href: "/ui/structured-data",
+    href: "/ui//structured-data",
     icon: Settings,
     gradient: "from-orange-500 to-red-600",
     bgGradient: "from-orange-50 to-red-50",
@@ -106,7 +106,7 @@ export const features = [
     title: "Structured Arrays",
     description:
       "Generate structured arrays of data like Pokemon lists with AI-powered collection generation.",
-    href: "/ui/structured-array",
+    href: "/ui//structured-array",
     icon: ClipboardList,
     gradient: "from-indigo-500 to-blue-600",
     bgGradient: "from-indigo-50 to-blue-50",
@@ -116,7 +116,7 @@ export const features = [
     title: "Structured Enums",
     description:
       "Classify and analyze text sentiment using AI-powered enum generation with predefined categories.",
-    href: "/ui/structured-enum",
+    href: "/ui//structured-enum",
     icon: Target,
     gradient: "from-teal-500 to-cyan-600",
     bgGradient: "from-teal-50 to-cyan-50",
