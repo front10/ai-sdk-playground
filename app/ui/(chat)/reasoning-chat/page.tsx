@@ -1,29 +1,29 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { SuggestionButtons } from "@/components/ui/suggestion-buttons";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { SuggestionButtons } from "@/components/ui/suggestion-buttons";
+import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 import {
   AlertCircle,
   ArrowLeft,
+  Brain,
   Code,
   MessageCircle,
   Send,
   Square,
-  Brain,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ChatCode } from "./ChatCode";
-import { DefaultChatTransport } from "ai";
 
 function ReasoningChat() {
   const { messages, sendMessage, status, error, stop } = useChat({

@@ -1,6 +1,6 @@
 import { aj } from "@/arcject/config";
 import { openai } from "@ai-sdk/openai";
-import { convertToModelMessages, streamText, UIMessage, UIDataTypes } from "ai";
+import { convertToModelMessages, streamText, UIDataTypes, UIMessage } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 
 export type ChatMessages = UIMessage<never, UIDataTypes>;
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       });
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({ sendReasoning: true });
   } catch (error) {
     return NextResponse.json(
       {
