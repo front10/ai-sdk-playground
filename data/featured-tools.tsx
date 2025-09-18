@@ -90,6 +90,16 @@ export const features = [
     bgGradient: "from-rose-50 to-pink-50",
     category: "chat",
   },
+  {
+    title: "Metadata Chat",
+    description:
+      "AI chat that includes message metadata like timestamps and token usage.",
+    href: "/ui/metadata",
+    icon: ClipboardList,
+    gradient: "from-sky-500 to-cyan-600",
+    bgGradient: "from-sky-50 to-cyan-50",
+    category: "chat",
+  },
 
   // Structured Data Generation
   {

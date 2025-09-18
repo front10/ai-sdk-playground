@@ -20,6 +20,12 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { MultiModalChatCode } from "./MultiModalChatCode";
 
+const suggestions = [
+  "Describe this image",
+  "What's in this picture?",
+  "Tell me a story about this scene",
+];
+
 function MultiModalChat() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
   const [showCode, setShowCode] = useState(false);
@@ -38,12 +44,6 @@ function MultiModalChat() {
   const [prompt, setPrompt] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const suggestions = [
-    "Describe this image",
-    "What's in this picture?",
-    "Tell me a story about this scene",
-  ];
 
   const handleSuggestionClick = (suggestion: string) => {
     setPrompt(suggestion);

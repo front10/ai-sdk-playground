@@ -22,6 +22,12 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { GenImageToolCode } from "./GenImageToolCode";
 
+const suggestions = [
+  "Generate an image of a cat",
+  "What's in this picture?",
+  "Generate an image of a dog",
+];
+
 function GenImageTool() {
   const [files, setFiles] = useState<FileList | undefined>(undefined);
   const [showCode, setShowCode] = useState(false);
@@ -40,12 +46,6 @@ function GenImageTool() {
   const [prompt, setPrompt] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const suggestions = [
-    "Generate an image of a cat",
-    "What's in this picture?",
-    "Generate an image of a dog",
-  ];
 
   const handleSuggestionClick = (suggestion: string) => {
     setPrompt(suggestion);
