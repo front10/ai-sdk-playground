@@ -12,6 +12,7 @@ import {
   Code,
   File,
   ImageIcon,
+  Paperclip,
   Send,
   Square,
 } from "lucide-react";
@@ -228,7 +229,24 @@ function GenImageTool() {
                               );
                             }
 
-                            return null;
+                            return (
+                              <div
+                                key={`${message.id}-${index}-file`}
+                                className="flex items-center gap-2 text-sm text-gray-600"
+                              >
+                                <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center border border-gray-200">
+                                  <Paperclip className="w-4 h-4 text-gray-500" />
+                                </div>
+                                <span className="truncate max-w-xs">
+                                  {part.filename || `attachment-${index}`}
+                                </span>
+                                {part.mediaType && (
+                                  <span className="text-xs text-gray-400">
+                                    ({part.mediaType})
+                                  </span>
+                                )}
+                              </div>
+                            );
 
                           case "tool-generateImage":
                             switch (part.state) {
