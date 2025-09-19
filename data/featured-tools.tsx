@@ -81,6 +81,16 @@ export const features = [
     category: "chat",
   },
   {
+    title: "AI Providers Chat",
+    description:
+      "Select OpenAI models (Fast, Smart, Reasoning) on the fly with a minimal segmented control.",
+    href: "/ui/providers",
+    icon: Settings,
+    gradient: "from-sky-500 to-blue-600",
+    bgGradient: "from-sky-50 to-blue-50",
+    category: "chat",
+  },
+  {
     title: "Multi-Modal Chat",
     description:
       "Advanced AI chat with support for text, images, and multiple input types for rich conversations.",
