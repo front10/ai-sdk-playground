@@ -3,26 +3,7 @@ import { CodeBlock } from "@/components/ui/code-block";
 
 const frontendCode = `"use client";
 
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { SuggestionButtons } from "@/components/ui/suggestion-buttons";
-import { AlertCircle, ArrowLeft, Code, Search, Send } from "lucide-react";
-import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-
-type MovieResult = {
-  id: number;
-  title: string;
-  description: string;
-  similarity: number;
-};
-
-const suggestions = [
-  "sci-fi about space and time",
-  "romantic love story",
-  "crime family drama",
-];
+/** Imports */
 
 export default function SemanticSearch() {
   const [query, setQuery] = useState("");
@@ -56,7 +37,9 @@ export default function SemanticSearch() {
     }
   };
 
-  return <div />;
+  return <div className="flex flex-col h-screen bg-gray-50">
+      {/* Header, content, and input areas */}
+    </div>;
 }`;
 
 const backendCode = `import { embed, embedMany, cosineSimilarity } from "ai";
@@ -160,7 +143,7 @@ export function SemanticSearchCode() {
           <ul className="space-y-2 text-purple-700">
             <li className="flex items-start gap-2">
               <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-              <span>Embeddings with OpenAI's text-embedding-3-small</span>
+              <span>Embeddings with OpenAI&apos;s text-embedding-3-small</span>
             </li>
             <li className="flex items-start gap-2">
               <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
